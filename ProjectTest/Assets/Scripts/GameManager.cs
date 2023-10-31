@@ -20,13 +20,22 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI coinsText;
     private int coinsToAdd;
 
+    // Round timer & text
+    private float timeLeft = 0.00f;
+    public TextMeshProUGUI timerText;
+    private int roundCounter = 0;
+    public TextMeshProUGUI roundText;
+
+    // Game Active
+    public bool isGameActive;
 
     // Enemies drop coin
     private float coinChance = 0.5f;
     // Coin & enemy object
     public GameObject coinPrefab;
 
-    
+    // Spawn manager
+    private SpawnManager spawnManager;
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +43,29 @@ public class GameManager : MonoBehaviour
         // UI elements for start
         enemiesKilled = 0;
         UpdateEnemiesKilled(killsToAdd);
+
+        // Call spawn manager
+        spawnManager = new SpawnManager();
+
+        // Set game as active
+        isGameActive = true;
+        timeLeft = 20;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (isGameActive)
+        {
+            timeLeft -= Time.deltaTime;
+            timerText.SetText("Time: " + Mathf.Round(timeLeft));
+            if (timeLeft < 0)
+            {
+                RoundEnded();
+                
+                
+            }
+        }
     }
 
     // Update enemy killed UI
@@ -70,5 +96,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
+    public void RoundEnded() 
+    {
+        // Logic for ending the round
+        print("round over");
+        roundCounter++;
+        roundText.text = "Round: " + roundCounter;
+
+        timeLeft = 20;
+    }
 }

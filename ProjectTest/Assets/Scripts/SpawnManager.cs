@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Spawn random ball at random x and y position in play area
-    void SpawnRandomEnemy()
+    public void SpawnRandomEnemy()
     {
         // Random position
         float randomX = Random.Range(minX, maxX);

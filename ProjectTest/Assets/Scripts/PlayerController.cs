@@ -83,8 +83,8 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
         {
             
-            //Destroy(gameObject);
-           // SceneManager.LoadScene("Game");
+            Destroy(gameObject);
+           SceneManager.LoadScene("Game");
         }
     }
 }
