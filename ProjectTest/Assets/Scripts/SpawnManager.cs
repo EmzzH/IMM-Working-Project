@@ -25,6 +25,9 @@ public class SpawnManager : MonoBehaviour
     // List of active enemies
     private List<GameObject> activeEnemies = new List<GameObject>();
 
+    // List of all active bullets
+    public List<GameObject> activeBullets = new List<GameObject>();
+
 
     // Start is called before the first frame update
     void Start()
@@ -81,8 +84,14 @@ public class SpawnManager : MonoBehaviour
             Destroy(enemy);
         }
 
+        foreach (var bullet in activeBullets) 
+        {
+            Destroy(bullet);
+        }
+
         // Clear the list of active enemies
         activeEnemies.Clear();
+        activeBullets.Clear();
     }
 }
 

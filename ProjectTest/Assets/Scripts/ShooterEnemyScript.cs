@@ -28,6 +28,8 @@ public class ShooterEnemyScript : MonoBehaviour
 
     // Game manager
     private GameManager gameManager;
+    // Spawn manager
+    private SpawnManager spawnManager;
 
     void Start()
     {
@@ -41,6 +43,8 @@ public class ShooterEnemyScript : MonoBehaviour
 
         // Set Game Gamager
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // Set spawn manager
+       spawnManager = FindObjectOfType<SpawnManager>();
     }
 
 
@@ -66,6 +70,8 @@ public class ShooterEnemyScript : MonoBehaviour
 
         // Instantiate a bullet at the fire point's position and rotation
         GameObject bullet = Instantiate(enemyBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
+
+        spawnManager.activeBullets.Add(bullet);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -10,6 +10,9 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+    // Get canvas
+    public Canvas gameCanvas;
+    public Canvas shopCanvas;
     // Enemies killed UI
     private int enemiesKilled;
     public TextMeshProUGUI killedText;
@@ -18,7 +21,6 @@ public class GameManager : MonoBehaviour
     // Coins collected UI
     private int coinsCollected;
     public TextMeshProUGUI coinsText;
-    private int coinsToAdd;
 
     // Round timer & text
     private float timeLeft = 0.00f;
@@ -37,12 +39,16 @@ public class GameManager : MonoBehaviour
 
     // Spawn manager
     private SpawnManager spawnManager;
-
     // Camera 
     private FollowPlayer playerCamera;
+    // UI Controller
+    private UIController uiControl;
+    
 
     // Shop
     private bool isInShop = true;
+    public TextMeshProUGUI shopHeaderText;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -51,8 +57,9 @@ public class GameManager : MonoBehaviour
         enemiesKilled = 0;
         UpdateEnemiesKilled(killsToAdd);
 
-        // Call spawn manager
+        // Call spawn manager & shooter enemy
         spawnManager = FindObjectOfType<SpawnManager>();
+        
 
         // Set game as active
         isGameActive = true;
@@ -61,26 +68,32 @@ public class GameManager : MonoBehaviour
         // Set round as active
         hasRoundStarted = true;
 
-    // Get the player camera
-    playerCamera = FindObjectOfType<FollowPlayer>();
+        // Get the player camera
+        playerCamera = FindObjectOfType<FollowPlayer>();
+        // Get the uiControl
+        uiControl = FindObjectOfType<UIController>();
 
+        //uiControl.hideUI(shopHeaderText);
+
+        // Get the canvas
+        uiControl.hideCanvas(shopCanvas);
+        // uiControl.hideCanvas();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if (isGameActive)
         {
             timeLeft -= Time.deltaTime;
             timerText.SetText("Time: " + Mathf.Round(timeLeft));
             RoundActive();
             
+            // End the round
             if (timeLeft < 0)
             {
                 RoundEnded();
-                isGameActive=false;
-                spawnManager.SetRoundActive(false);
-                spawnManager.CullEnemies();
             }
         }
     }
@@ -123,6 +136,14 @@ public class GameManager : MonoBehaviour
         timeLeft = 10;
         isInShop = true;
         playerCamera.isInShop = isInShop;
+
+        isGameActive = false;
+        spawnManager.SetRoundActive(false);
+        spawnManager.CullEnemies();
+        uiControl.hideCanvas(gameCanvas);
+        uiControl.getCanvas(shopCanvas);
+        
+        
     }
 
     public void RoundActive() 

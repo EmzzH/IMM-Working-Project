@@ -13,6 +13,7 @@ public class EnemyBullet : MonoBehaviour
     public float mapBoundX = 40.0f;
     public float mapBoundZ = 40.0f;
 
+    
 
     private void Start()
     {
@@ -42,6 +43,12 @@ public class EnemyBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    // Cull bullets
+    public void CullBullets() 
+    {
+        
     }
 }
 
