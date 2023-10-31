@@ -23,11 +23,12 @@ public class GameManager : MonoBehaviour
     // Round timer & text
     private float timeLeft = 0.00f;
     public TextMeshProUGUI timerText;
-    private int roundCounter = 0;
+    private int roundCounter = 1;
     public TextMeshProUGUI roundText;
 
     // Game Active
     public bool isGameActive;
+    private bool hasRoundStarted;
 
     // Enemies drop coin
     private float coinChance = 0.5f;
@@ -37,6 +38,12 @@ public class GameManager : MonoBehaviour
     // Spawn manager
     private SpawnManager spawnManager;
 
+    // Camera 
+    private FollowPlayer playerCamera;
+
+    // Shop
+    private bool isInShop = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +52,18 @@ public class GameManager : MonoBehaviour
         UpdateEnemiesKilled(killsToAdd);
 
         // Call spawn manager
-        spawnManager = new SpawnManager();
+        spawnManager = FindObjectOfType<SpawnManager>();
 
         // Set game as active
         isGameActive = true;
-        timeLeft = 20;
+        timeLeft = 10;
+
+        // Set round as active
+        hasRoundStarted = true;
+
+    // Get the player camera
+    playerCamera = FindObjectOfType<FollowPlayer>();
+
     }
 
     // Update is called once per frame
@@ -59,11 +73,14 @@ public class GameManager : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
             timerText.SetText("Time: " + Mathf.Round(timeLeft));
+            RoundActive();
+            
             if (timeLeft < 0)
             {
                 RoundEnded();
-                
-                
+                isGameActive=false;
+                spawnManager.SetRoundActive(false);
+                spawnManager.CullEnemies();
             }
         }
     }
@@ -103,6 +120,17 @@ public class GameManager : MonoBehaviour
         roundCounter++;
         roundText.text = "Round: " + roundCounter;
 
-        timeLeft = 20;
+        timeLeft = 10;
+        isInShop = true;
+        playerCamera.isInShop = isInShop;
+    }
+
+    public void RoundActive() 
+    {
+        if (isGameActive == true && hasRoundStarted == true)
+        {
+           spawnManager.SpawnRandomEnemy();
+           hasRoundStarted = false;
+        }
     }
 }

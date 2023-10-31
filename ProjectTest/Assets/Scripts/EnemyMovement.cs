@@ -73,6 +73,7 @@ public class EnemyMovement : MonoBehaviour
         }
         else 
         {
+            // Enemy goes backwards if plater gets too close
             Vector3 backwardVelocity = new Vector3(0.0f, 0.0f, -3.0f);
             enemyRb.velocity = backwardVelocity;
         }
