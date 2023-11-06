@@ -363,7 +363,7 @@
 "Assets/Scripts/PlayerBullet.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/ShooterEnemyScript.cs"
-"Assets/Scripts/Shop.cs"
+"Assets/Scripts/ShopManager.cs"
 "Assets/Scripts/SpawnManager.cs"
 "Assets/Scripts/UIController.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

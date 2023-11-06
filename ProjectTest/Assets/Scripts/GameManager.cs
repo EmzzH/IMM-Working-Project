@@ -10,9 +10,6 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    // Get canvas
-    public Canvas gameCanvas;
-    public Canvas shopCanvas;
     // Enemies killed UI
     private int enemiesKilled;
     public TextMeshProUGUI killedText;
@@ -43,12 +40,19 @@ public class GameManager : MonoBehaviour
     private FollowPlayer playerCamera;
     // UI Controller
     private UIController uiControl;
-    
+    // Player
+    private PlayerController playerController;
+
 
     // Shop
+    public GameObject shopPrefab;
     private bool isInShop = true;
     public TextMeshProUGUI shopHeaderText;
-    
+
+    // Ground
+    public GameObject groundObject;
+    // Shop manager
+    private ShopManager shopManager;
 
     // Start is called before the first frame update
     void Start()
@@ -60,10 +64,9 @@ public class GameManager : MonoBehaviour
         // Call spawn manager & shooter enemy
         spawnManager = FindObjectOfType<SpawnManager>();
         
-
         // Set game as active
         isGameActive = true;
-        timeLeft = 10;
+        timeLeft = 3;
 
         // Set round as active
         hasRoundStarted = true;
@@ -73,11 +76,8 @@ public class GameManager : MonoBehaviour
         // Get the uiControl
         uiControl = FindObjectOfType<UIController>();
 
-        //uiControl.hideUI(shopHeaderText);
-
-        // Get the canvas
-        uiControl.hideCanvas(shopCanvas);
-        // uiControl.hideCanvas();
+        // Get the shop manager
+        shopManager = FindObjectOfType<ShopManager>();
     }
 
     // Update is called once per frame
@@ -140,10 +140,9 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
-        uiControl.hideCanvas(gameCanvas);
-        uiControl.getCanvas(shopCanvas);
-        
-        
+        uiControl.HideUI(timerText);
+        uiControl.HideUI(killedText);
+        ShopTime();
     }
 
     public void RoundActive() 
@@ -153,5 +152,15 @@ public class GameManager : MonoBehaviour
            spawnManager.SpawnRandomEnemy();
            hasRoundStarted = false;
         }
+    }
+
+    public void ShopTime()
+    {
+        groundObject.SetActive(false);
+        // Spawn the shop
+        Vector3 spawnPos = new Vector3(0,0,0);
+        Instantiate(shopPrefab, spawnPos, Quaternion.identity);
+
+        shopManager.SpawnShop();
     }
 }

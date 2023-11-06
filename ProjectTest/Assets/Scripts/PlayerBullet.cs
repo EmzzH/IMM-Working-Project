@@ -39,5 +39,10 @@ public class PlayerBullet : MonoBehaviour
             // Destroy the shooter enemy GameObject
             Destroy(gameObject);
         }
+
+        if (other.CompareTag("ShopObject"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

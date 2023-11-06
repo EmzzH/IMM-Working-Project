@@ -28,6 +28,12 @@ public class SpawnManager : MonoBehaviour
     // List of all active bullets
     public List<GameObject> activeBullets = new List<GameObject>();
 
+    // Shop location
+    private float shopSpawnPosX = 10.0f;
+    private float shopSpawnPosZ = 10.0f;
+
+    // Shop Prefabs
+    public GameObject[] shopPrefabs;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +67,7 @@ public class SpawnManager : MonoBehaviour
             // Add the enemies to the list as they spawn
             activeEnemies.Add(enemyInstance);
         }
+        
     }
 
     // Update is called once per frame
