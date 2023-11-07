@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     private int killsToAdd;
 
     // Coins collected UI
-    private int coinsCollected;
+    public int coinsCollected;
     public TextMeshProUGUI coinsText;
 
     // Round timer & text
@@ -130,8 +130,6 @@ public class GameManager : MonoBehaviour
     {
         // Logic for ending the round
         print("round over");
-        roundCounter++;
-        roundText.text = "Round: " + roundCounter;
 
         timeLeft = 10;
         isInShop = true;
@@ -158,9 +156,39 @@ public class GameManager : MonoBehaviour
     {
         groundObject.SetActive(false);
         // Spawn the shop
-        Vector3 spawnPos = new Vector3(0,0,0);
-        Instantiate(shopPrefab, spawnPos, Quaternion.identity);
+        //Vector3 spawnPos = new Vector3(0,0,0);
+        //Instantiate(shopPrefab, spawnPos, Quaternion.identity);
 
         shopManager.SpawnShop();
+    }
+
+    public void NextRound() 
+    {
+        // Despawn shop
+        shopManager.DespawnShop();
+        // Spawn the ground
+        groundObject.SetActive(true);
+
+        // Increment the round counter
+        roundCounter++;
+        roundText.text = "Round: " + roundCounter;
+
+        // Reset the time for the new round (e.g., 10 seconds)
+        timeLeft = 10.0f;
+
+        // Set the game as active for the new round
+        isGameActive = true;
+
+        // Reset the flag to allow spawning new enemies
+        hasRoundStarted = true;
+
+        // Set isInShop to false if it's intended to exit the shop for the new round
+        isInShop = false;
+        playerCamera.isInShop = isInShop;
+
+        spawnManager.SetRoundActive(true);
+        // Call the method to spawn enemies for the new round
+        RoundActive();
+
     }
 }

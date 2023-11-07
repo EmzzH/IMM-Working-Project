@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killedText: {fileID: 413778706}
+  coinsCollected: 0
   coinsText: {fileID: 1746415937}
   timerText: {fileID: 380591342}
   roundText: {fileID: 281063145}
@@ -1263,6 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c652bd0a2e08e438605026f94f77ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopPrefab: {fileID: 3983313221451726068, guid: 3ae2eafd97c365f4db3dbbab7b66f5cd, type: 3}
   shopPrefabs:
   - {fileID: 576002813648097471, guid: dd92f08122f4ae94eb96992ba0b2ebdf, type: 3}
   - {fileID: 1387238390833740999, guid: cf5f4fb25d5f78748a92a27f034386a6, type: 3}
