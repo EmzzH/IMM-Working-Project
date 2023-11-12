@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         
         // Set game as active
         isGameActive = true;
-        timeLeft = 3;
+        timeLeft = 30;
 
         // Set round as active
         hasRoundStarted = true;
@@ -174,7 +174,7 @@ public class GameManager : MonoBehaviour
         roundText.text = "Round: " + roundCounter;
 
         // Reset the time for the new round (e.g., 10 seconds)
-        timeLeft = 10.0f;
+        timeLeft = 30.0f;
 
         // Set the game as active for the new round
         isGameActive = true;
