@@ -7,7 +7,7 @@ MonoImporter:
   - killedText: {instanceID: 0}
   - coinsText: {instanceID: 0}
   - coinPrefab: {fileID: 8376412041705022307, guid: 6799d933e128afc4cae5a1c4697de217, type: 3}
-  executionOrder: 30
+  executionOrder: 0
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

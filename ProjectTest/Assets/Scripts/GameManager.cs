@@ -10,19 +10,21 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    // UI Controller
-    private UIController uiControl;
     // Enemies killed
     private int enemiesKilled;
-    private int killsToAdd =0;
+    private int killsToAdd;
+
     // Coins collected
     public int coinsCollected;
+
     // Round timer & text
     private float timeLeft = 0.00f;
     public int roundCounter = 1;
+
     // Game Active
     public bool isGameActive;
     private bool hasRoundStarted;
+
     // Enemies drop coin
     private float coinChance = 0.5f;
     // Coin & enemy object
@@ -32,11 +34,13 @@ public class GameManager : MonoBehaviour
     private SpawnManager spawnManager;
     // Camera 
     private FollowPlayer playerCamera;
-    
+    // UI Controller
+    private UIController uiControl;
     // Player
     private PlayerController playerController;
     // Player health
     private int playerHealth;
+
     // Shop
     public GameObject shopPrefab;
     private bool isInShop = true;
@@ -51,28 +55,28 @@ public class GameManager : MonoBehaviour
     {
         // Get the uiControl
         uiControl = FindObjectOfType<UIController>();
-        // Get the player controller
-        playerController = FindObjectOfType<PlayerController>();
+        // UI elements for start
+        enemiesKilled = 0;
+        UpdateEnemiesKilled(killsToAdd);
+
+        // Call spawn manager & shooter enemy
+        spawnManager = FindObjectOfType<SpawnManager>();
+        
         // Set game as active
         isGameActive = true;
         timeLeft = 30;
+
         // Set round as active
         hasRoundStarted = true;
-        // UI elements for start
-        enemiesKilled = 0;
 
-        
-        
-        // Call spawn manager & shooter enemy
-        spawnManager = FindObjectOfType<SpawnManager>();
         // Get the player camera
         playerCamera = FindObjectOfType<FollowPlayer>();
+        
         // Get the shop manager
         shopManager = FindObjectOfType<ShopManager>();
-        
-        // UI elements for start
-        uiControl.StartUI();
 
+        // Get the player controller
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -81,11 +85,11 @@ public class GameManager : MonoBehaviour
         
         if (isGameActive)
         {
-            RoundActive();
-            PlayerHealth();
             timeLeft -= Time.deltaTime;
             uiControl.RoundTimerUI(timeLeft);
-
+            RoundActive();
+            PlayerHealthUI();
+            
             // End the round
             if (timeLeft < 0)
             {
@@ -188,7 +192,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Player health UI
-    public void PlayerHealth() 
+    public void PlayerHealthUI() 
     {
         // Get the player health
         playerHealth = playerController.playerHealth;

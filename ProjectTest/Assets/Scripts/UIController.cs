@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    private int roundCounter = 1;
-    private int coinsCollected = 0;
-
+    // Game manager object
+    private GameManager gameManager;
     // UI Elements
     public TextMeshProUGUI killedText;
     public TextMeshProUGUI coinsText;
@@ -15,17 +14,13 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerHealthText;
-    // Game manager object
-    private GameManager gameManager;
-
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        {
-            Debug.LogError("GameManager not found in the scene!");
-        }
-
+        // Set start UI
+        roundText.text = "Round: " + gameManager.roundCounter;
+        coinsText.text = "Coins: " + gameManager.coinsCollected;
     }
 
     // Update is called once per frame
@@ -33,14 +28,7 @@ public class UIController : MonoBehaviour
     {
         
     }
-    public void StartUI() 
-    {
-        
-        // Set start UI
-        // roundText.text = "Round: " + roundCounter;
-        // coinsText.text = "Coins: " + coinsCollected;
 
-    }
     // Enemies Killed UI
     public void EnemiesKilledUI(int enemiesKilled) 
     {
