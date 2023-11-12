@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
-  executionOrder: 0
+  executionOrder: 35
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
