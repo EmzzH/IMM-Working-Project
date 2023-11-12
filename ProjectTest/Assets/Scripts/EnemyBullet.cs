@@ -39,7 +39,7 @@ public class EnemyBullet : MonoBehaviour
     // Destroy bullets
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerBullet"))
+        if (other.CompareTag("PlayerBullet") || other.CompareTag("Player"))
         {
             Destroy(gameObject);
         }

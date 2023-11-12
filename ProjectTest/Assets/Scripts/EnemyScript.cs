@@ -35,7 +35,7 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion"))
+        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion") || other.CompareTag("Player"))
         {
             // Get the position of the enemy
             Vector3 enemyPosition = transform.position;

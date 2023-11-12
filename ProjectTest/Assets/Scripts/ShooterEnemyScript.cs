@@ -78,7 +78,7 @@ public class ShooterEnemyScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Enemy die
-        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion"))
+        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion") || other.CompareTag("Player"))
         {
             // Get the position of the enemy
             Vector3 enemyPositon = transform.position;

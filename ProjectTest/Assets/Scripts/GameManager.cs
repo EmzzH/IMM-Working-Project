@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     private int roundCounter = 1;
     public TextMeshProUGUI roundText;
 
+    // Player health UI
+    public TextMeshProUGUI playerHealthText;
+
     // Game Active
     public bool isGameActive;
     private bool hasRoundStarted;
@@ -45,7 +48,8 @@ public class GameManager : MonoBehaviour
     private UIController uiControl;
     // Player
     private PlayerController playerController;
-
+    // Player health
+    private int playerHealth;
 
     // Shop
     public GameObject shopPrefab;
@@ -79,12 +83,13 @@ public class GameManager : MonoBehaviour
         playerCamera = FindObjectOfType<FollowPlayer>();
         // Get the uiControl
         uiControl = FindObjectOfType<UIController>();
+        // Get the shop manager
+        shopManager = FindObjectOfType<ShopManager>();
 
         // Get the player controller
         playerController = FindObjectOfType<PlayerController>();
-
-        // Get the shop manager
-        shopManager = FindObjectOfType<ShopManager>();
+        
+        
     }
 
     // Update is called once per frame
@@ -96,7 +101,7 @@ public class GameManager : MonoBehaviour
             timeLeft -= Time.deltaTime;
             timerText.SetText("Time: " + Mathf.Round(timeLeft));
             RoundActive();
-            
+            PlayerHealthUI();
             // End the round
             if (timeLeft < 0)
             {
@@ -108,7 +113,6 @@ public class GameManager : MonoBehaviour
     // Update enemy killed UI
     public void UpdateEnemiesKilled(int killsToAdd) 
     {
-        
         killedText.text = "Enemies Killed: " + enemiesKilled;
         enemiesKilled += killsToAdd;
         killedText.text = "Enemies Killed: " + enemiesKilled;
@@ -197,6 +201,14 @@ public class GameManager : MonoBehaviour
         spawnManager.SetRoundActive(true);
         // Call the method to spawn enemies for the new round
         RoundActive();
+    }
 
+    // Player health UI
+    public void PlayerHealthUI() 
+    {
+        // Get the player health
+        playerHealth = playerController.playerHealth;
+        // Set text for player health
+        playerHealthText.text = "Health: " + playerHealth;
     }
 }

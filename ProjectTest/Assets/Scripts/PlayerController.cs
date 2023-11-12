@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -15,6 +16,8 @@ public class PlayerController : MonoBehaviour
     public GameObject playerGun;
     // Spawn manager
     private SpawnManager spawnManager;
+    // Game manager
+    private GameManager gameManager;
 
     // Player location for shop
     private Vector3 playerShopPosition = new Vector3(0, 1, 0);
@@ -31,7 +34,16 @@ public class PlayerController : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
-
+    // Player health
+    public int playerHealth = 3;
+    // Player material
+    public Material playerMat;
+    // Hurt time
+    private float hurtTime = 2f;
+    // Time left
+    private float timeLeft = 0f;
+    // Is hit boolean
+    public bool isHit = false;
 
     void Start()
     {
@@ -44,6 +56,12 @@ public class PlayerController : MonoBehaviour
 
         // Set spawn manager
         spawnManager = FindObjectOfType<SpawnManager>();
+        // Set game manager
+        gameManager = FindObjectOfType<GameManager>();
+
+        // Set the player colour
+        playerMat.SetColor("_Color", Color.green);
+
     }
 
     void Update()
@@ -77,6 +95,10 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (isHit) 
+        {
+            PlayerHit();
+        }    
     }
 
     void Fire()
@@ -96,14 +118,35 @@ public class PlayerController : MonoBehaviour
         playerPosition.position = playerShopPosition;
     }
 
+    public void PlayerHit() 
+    {
+        playerMat.SetColor("_Color", Color.red);
+
+        timeLeft += Time.deltaTime;
+        if (timeLeft >= hurtTime)
+        {
+            // Set the player to green again
+            playerMat.SetColor("_Color", Color.green);
+            // Reset the player being hit
+            timeLeft = 0;   
+            isHit = false;
+        }
+    }
+
     // Player gets killed
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Explosion"))
         {
-            
-            Destroy(gameObject);
-           SceneManager.LoadScene("Game");
+            // Decrease player health
+            playerHealth -= 1;
+            if (playerHealth < 1)
+            {
+                Destroy(gameObject);
+                SceneManager.LoadScene("Game");
+            }
+            // Player is hit
+            isHit = true;
         }
     }
 }
