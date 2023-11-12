@@ -10,26 +10,16 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    // Enemies killed UI
+    // Enemies killed
     private int enemiesKilled;
-    public TextMeshProUGUI killedText;
     private int killsToAdd;
 
-    // Coins collected UI
-    public int coinsCollected = 0;
-    public TextMeshProUGUI coinsText;
-
-    // SHop UI
-    public TextMeshProUGUI shopText;
+    // Coins collected
+    public int coinsCollected;
 
     // Round timer & text
     private float timeLeft = 0.00f;
-    public TextMeshProUGUI timerText;
-    private int roundCounter = 1;
-    public TextMeshProUGUI roundText;
-
-    // Player health UI
-    public TextMeshProUGUI playerHealthText;
+    public int roundCounter = 1;
 
     // Game Active
     public bool isGameActive;
@@ -63,12 +53,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get the uiControl
+        uiControl = FindObjectOfType<UIController>();
         // UI elements for start
         enemiesKilled = 0;
         UpdateEnemiesKilled(killsToAdd);
 
-        roundText.text = "Round: " + roundCounter;
-        coinsText.text = "Coins: " + coinsCollected;
         // Call spawn manager & shooter enemy
         spawnManager = FindObjectOfType<SpawnManager>();
         
@@ -81,15 +71,12 @@ public class GameManager : MonoBehaviour
 
         // Get the player camera
         playerCamera = FindObjectOfType<FollowPlayer>();
-        // Get the uiControl
-        uiControl = FindObjectOfType<UIController>();
+        
         // Get the shop manager
         shopManager = FindObjectOfType<ShopManager>();
 
         // Get the player controller
         playerController = FindObjectOfType<PlayerController>();
-        
-        
     }
 
     // Update is called once per frame
@@ -99,9 +86,10 @@ public class GameManager : MonoBehaviour
         if (isGameActive)
         {
             timeLeft -= Time.deltaTime;
-            timerText.SetText("Time: " + Mathf.Round(timeLeft));
+            uiControl.RoundTimerUI(timeLeft);
             RoundActive();
             PlayerHealthUI();
+            
             // End the round
             if (timeLeft < 0)
             {
@@ -113,16 +101,19 @@ public class GameManager : MonoBehaviour
     // Update enemy killed UI
     public void UpdateEnemiesKilled(int killsToAdd) 
     {
-        killedText.text = "Enemies Killed: " + enemiesKilled;
         enemiesKilled += killsToAdd;
-        killedText.text = "Enemies Killed: " + enemiesKilled;
+        uiControl.EnemiesKilledUI(enemiesKilled);
+        
     }
 
     // Coins collected
     public void UpdateCoinCollected(int coinsToAdd) 
     {
+        print(coinsToAdd);
+        print(coinsCollected);
         coinsCollected += coinsToAdd;
-        coinsText.text = "Coins: " + coinsCollected;
+        print(coinsCollected);
+        uiControl.CoinsCollectedUI(coinsCollected);
     }
 
     public void CoinDrop(Vector3 enemyPosition) 
@@ -146,9 +137,6 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
-        uiControl.HideUI(timerText);
-        uiControl.HideUI(killedText);
-        uiControl.ShowUI(shopText);
         ShopTime();
     }
 
@@ -167,6 +155,7 @@ public class GameManager : MonoBehaviour
         groundObject.SetActive(false);
         shopManager.SpawnShop();
         playerController.MovePlayerToShop();
+        uiControl.ShopUI();
     }
 
     public void NextRound() 
@@ -176,14 +165,13 @@ public class GameManager : MonoBehaviour
         // Spawn the ground
         groundObject.SetActive(true);
 
-        // Increment the round counter
+        // Increment the round counter and update UI
         roundCounter++;
-        roundText.text = "Round: " + roundCounter;
-
+        uiControl.RoundCounterUI(roundCounter);
+        
         // Add back in hidden UI Elements
-        uiControl.ShowUI(timerText);
-        uiControl.ShowUI(killedText);
-        uiControl.HideUI(shopText);
+        uiControl.RoundUI();
+
 
         // Reset the time for the new round (e.g., 10 seconds)
         timeLeft = 30.0f;
@@ -209,6 +197,6 @@ public class GameManager : MonoBehaviour
         // Get the player health
         playerHealth = playerController.playerHealth;
         // Set text for player health
-        playerHealthText.text = "Health: " + playerHealth;
+        uiControl.PlayerHealthUI(playerHealth);
     }
 }
