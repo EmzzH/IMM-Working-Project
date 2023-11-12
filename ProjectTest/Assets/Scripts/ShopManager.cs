@@ -10,6 +10,9 @@ public class ShopManager : MonoBehaviour
     // y position
     private float yPos = 1;
 
+    // Player location for shop
+    private Vector3 playerShopPosition = new Vector3(0,0,0);
+
     // Shop ground
     public GameObject shopPrefab;
     // Shop Prefabs

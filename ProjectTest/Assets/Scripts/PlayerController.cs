@@ -13,6 +13,11 @@ public class PlayerController : MonoBehaviour
     public GameObject playerBullet;
     // Gun prefab
     public GameObject playerGun;
+    // Spawn manager
+    private SpawnManager spawnManager;
+
+    // Player location for shop
+    private Vector3 playerShopPosition = new Vector3(0, 1, 0);
 
     //for shooting
     private Transform player;
@@ -36,6 +41,9 @@ public class PlayerController : MonoBehaviour
 
         // Set the firepoint
         firePoint = playerGun.transform;
+
+        // Set spawn manager
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     void Update()
@@ -75,6 +83,17 @@ public class PlayerController : MonoBehaviour
     {
         // Instantiate a bullet at the fire point's position and rotation
         GameObject bullet = Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
+        // Add the bullets to the list in spawn manager
+        spawnManager.activeBullets.Add(bullet);
+    }
+
+    // Move the player to the shop when it is entered
+    public void MovePlayerToShop() 
+    {
+        // Get player position
+        Transform playerPosition = transform;
+        // Move player
+        playerPosition.position = playerShopPosition;
     }
 
     // Player gets killed

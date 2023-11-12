@@ -71,6 +71,7 @@ public class ShooterEnemyScript : MonoBehaviour
         // Instantiate a bullet at the fire point's position and rotation
         GameObject bullet = Instantiate(enemyBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
 
+        // Add the bullets to the list in spawn manager
         spawnManager.activeBullets.Add(bullet);
     }
 

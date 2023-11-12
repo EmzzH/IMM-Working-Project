@@ -80,6 +80,9 @@ public class GameManager : MonoBehaviour
         // Get the uiControl
         uiControl = FindObjectOfType<UIController>();
 
+        // Get the player controller
+        playerController = FindObjectOfType<PlayerController>();
+
         // Get the shop manager
         shopManager = FindObjectOfType<ShopManager>();
     }
@@ -159,6 +162,7 @@ public class GameManager : MonoBehaviour
     {
         groundObject.SetActive(false);
         shopManager.SpawnShop();
+        playerController.MovePlayerToShop();
     }
 
     public void NextRound() 
