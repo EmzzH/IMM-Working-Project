@@ -77,12 +77,12 @@ public class ShooterEnemyScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Enemy die
-        if (other.CompareTag("PlayerBullet"))
+        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion"))
         {
             // Get the position of the enemy
-            Vector3 enempyPositon = transform.position;
+            Vector3 enemyPositon = transform.position;
             // Drop coin
-            gameManager.CoinDrop(enempyPositon);
+            gameManager.CoinDrop(enemyPositon);
             // Update Score
             gameManager.UpdateEnemiesKilled(1);
             // Destroy the shooter enemy GameObject

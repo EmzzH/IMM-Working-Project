@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     // Player gets killed
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
+        if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Explosion"))
         {
             
             Destroy(gameObject);

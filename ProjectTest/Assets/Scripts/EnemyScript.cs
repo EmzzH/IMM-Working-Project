@@ -35,12 +35,12 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerBullet"))
+        if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion"))
         {
             // Get the position of the enemy
-            Vector3 enempyPositon = transform.position;
+            Vector3 enemyPosition = transform.position;
             // Drop coin
-            gameManager.CoinDrop(enempyPositon);
+            gameManager.CoinDrop(enemyPosition);
 
             // Destroy the shooter enemy GameObject
             Destroy(gameObject);

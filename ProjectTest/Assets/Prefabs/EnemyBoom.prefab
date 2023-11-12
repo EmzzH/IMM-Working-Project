@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8663690642409206922}
   - component: {fileID: 2376383618050628893}
   - component: {fileID: 9214754362008114699}
-  - component: {fileID: -7755759649006047268}
+  - component: {fileID: -326973036133330405}
   m_Layer: 0
   m_Name: EnemyBoom
   m_TagString: Enemy
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-7755759649006047268
+--- !u!114 &-326973036133330405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5967083845781901655}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4f3bf6588575e74db1241537e40e250, type: 3}
+  m_Script: {fileID: 11500000, guid: 16ebac36497f30244b4808e5c07f34d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 7671898561760738930, guid: 8996d5198a39001438da9f1ae70397a4, type: 3}

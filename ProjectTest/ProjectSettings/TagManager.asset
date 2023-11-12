@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - EnemyBullet
   - ShopObject
+  - Explosion
   layers:
   - Default
   - TransparentFX
