@@ -238,6 +238,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da7c6f754483d0449a302be6e047566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  killedText: {fileID: 0}
+  coinsText: {fileID: 0}
+  shopText: {fileID: 0}
+  timerText: {fileID: 0}
+  roundText: {fileID: 0}
+  playerHealthText: {fileID: 0}
 --- !u!1 &281063143
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Round: '
+  m_text: 'Round: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -401,14 +407,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc98e48603e8a464aa69bca1bd798753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killedText: {fileID: 413778706}
   coinsCollected: 0
+  isGameActive: 0
+  playerHit: 0
+  killedText: {fileID: 413778706}
   coinsText: {fileID: 1746415937}
   shopText: {fileID: 1832904908}
   timerText: {fileID: 380591342}
   roundText: {fileID: 281063145}
   playerHealthText: {fileID: 1915881869}
-  isGameActive: 0
   coinPrefab: {fileID: 8376412041705022307, guid: 6799d933e128afc4cae5a1c4697de217, type: 3}
   shopPrefab: {fileID: 3983313221451726068, guid: 3ae2eafd97c365f4db3dbbab7b66f5cd, type: 3}
   groundObject: {fileID: 1311708287}
@@ -484,7 +491,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Timer: '
+  m_text: 'Timer: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -618,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enemies Killed:'
+  m_text: 'Enemies Killed: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -730,11 +737,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
   playerGun: {fileID: 1075494526}
+  gameManager: {fileID: 350696834}
   speedCam: 0
   cam: {fileID: 963194227}
   planeCollider: {fileID: 0}
-  playerHealth: 3
   playerMat: {fileID: 2100000, guid: 34bf3558a30b8f847b7832e39fe54d9c, type: 2}
+  isHit: 0
 --- !u!65 &594591993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -943,6 +951,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &717272258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717272260}
+  - component: {fileID: 717272259}
+  m_Layer: 0
+  m_Name: UIController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &717272259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717272258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9da7c6f754483d0449a302be6e047566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killedText: {fileID: 413778706}
+  coinsText: {fileID: 1746415937}
+  shopText: {fileID: 1832904908}
+  timerText: {fileID: 380591342}
+  roundText: {fileID: 281063145}
+  playerHealthText: {fileID: 1915881869}
+--- !u!4 &717272260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717272258}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 758.3356, y: 167.81146, z: 149.49043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &732251146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1508,7 +1566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Coins: '
+  m_text: 'Coins: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1934,3 +1992,4 @@ SceneRoots:
   - {fileID: 258757501}
   - {fileID: 2050370395}
   - {fileID: 1090526709}
+  - {fileID: 717272260}

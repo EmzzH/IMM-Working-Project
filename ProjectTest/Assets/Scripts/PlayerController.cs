@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     // Spawn manager
     private SpawnManager spawnManager;
     // Game manager
-    private GameManager gameManager;
+    public GameManager gameManager;
 
     // Player location for shop
     private Vector3 playerShopPosition = new Vector3(0, 1, 0);
@@ -34,8 +34,6 @@ public class PlayerController : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
-    // Player health
-    public int playerHealth = 3;
     // Player material
     public Material playerMat;
     // Hurt time
@@ -47,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        // Set game manager
+        gameManager = FindObjectOfType<GameManager>();
         // Set up for looking at mouse
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         planeCollider = GameObject.Find("Ground").GetComponent<Collider>();
@@ -56,12 +56,10 @@ public class PlayerController : MonoBehaviour
 
         // Set spawn manager
         spawnManager = FindObjectOfType<SpawnManager>();
-        // Set game manager
-        gameManager = FindObjectOfType<GameManager>();
+        
 
         // Set the player colour
         playerMat.SetColor("_Color", Color.green);
-
     }
 
     void Update()
@@ -138,13 +136,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Explosion"))
         {
-            // Decrease player health
-            playerHealth -= 1;
-            if (playerHealth < 1)
-            {
-                Destroy(gameObject);
-                SceneManager.LoadScene("Game");
-            }
+            gameManager.playerHit = true;
             // Player is hit
             isHit = true;
         }

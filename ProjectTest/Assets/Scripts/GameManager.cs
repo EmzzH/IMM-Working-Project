@@ -10,51 +10,37 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    // Enemies killed UI
+    // Declare variables
     private int enemiesKilled;
-    public TextMeshProUGUI killedText;
-    private int killsToAdd;
-
-    // Coins collected UI
-    public int coinsCollected = 0;
-    public TextMeshProUGUI coinsText;
-
-    // SHop UI
-    public TextMeshProUGUI shopText;
-
-    // Round timer & text
-    private float timeLeft = 0.00f;
-    public TextMeshProUGUI timerText;
-    private int roundCounter = 1;
-    public TextMeshProUGUI roundText;
-
-    // Player health UI
-    public TextMeshProUGUI playerHealthText;
-
+    public int coinsCollected;
+    private float timeLeft;
+    private int roundCounter;
+    private int playerHealth;
     // Game Active
     public bool isGameActive;
     private bool hasRoundStarted;
-
+    public bool playerHit;
     // Enemies drop coin
-    private float coinChance = 0.5f;
-    // Coin & enemy object
-    public GameObject coinPrefab;
+    private float coinChance;
 
+    // UI elements
+    public TextMeshProUGUI killedText;
+    public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI shopText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI roundText;
+    public TextMeshProUGUI playerHealthText;
+
+    // Game Objects
+    public GameObject coinPrefab;
     // Spawn manager
     private SpawnManager spawnManager;
-    // Camera 
-    private FollowPlayer playerCamera;
     // UI Controller
-    private UIController uiControl;
+    private UIController uiController;
     // Player
     private PlayerController playerController;
-    // Player health
-    private int playerHealth;
-
     // Shop
     public GameObject shopPrefab;
-    private bool isInShop = true;
-
     // Ground
     public GameObject groundObject;
     // Shop manager
@@ -63,45 +49,38 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // UI elements for start
+        // Initial game state
         enemiesKilled = 0;
-        UpdateEnemiesKilled(killsToAdd);
-
-        roundText.text = "Round: " + roundCounter;
-        coinsText.text = "Coins: " + coinsCollected;
-        // Call spawn manager & shooter enemy
-        spawnManager = FindObjectOfType<SpawnManager>();
-        
-        // Set game as active
+        coinsCollected = 0;
+        timeLeft = 20;
+        roundCounter = 1;
+        coinChance = 0.5f;
+        playerHealth = 3;
         isGameActive = true;
-        timeLeft = 30;
-
-        // Set round as active
         hasRoundStarted = true;
+        playerHit = false;
 
-        // Get the player camera
-        playerCamera = FindObjectOfType<FollowPlayer>();
-        // Get the uiControl
-        uiControl = FindObjectOfType<UIController>();
-        // Get the shop manager
-        shopManager = FindObjectOfType<ShopManager>();
+        // Call SpawnManager
+        spawnManager = FindObjectOfType<SpawnManager>();
+        // Get the UIController
+        uiController = FindObjectOfType<UIController>();
 
-        // Get the player controller
+        // Get the PlayerController
         playerController = FindObjectOfType<PlayerController>();
-        
-        
+
+        // Get the ShopManager
+        shopManager = FindObjectOfType<ShopManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (isGameActive)
         {
             timeLeft -= Time.deltaTime;
-            timerText.SetText("Time: " + Mathf.Round(timeLeft));
+            Timer(timeLeft);
+            PlayerHealth();
             RoundActive();
-            PlayerHealthUI();
             // End the round
             if (timeLeft < 0)
             {
@@ -109,11 +88,15 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    // Time
+    public void Timer(float timeLeft) 
+    {
+        timerText.SetText("Time: " + Mathf.Round(timeLeft));
 
+    }
     // Update enemy killed UI
     public void UpdateEnemiesKilled(int killsToAdd) 
     {
-        killedText.text = "Enemies Killed: " + enemiesKilled;
         enemiesKilled += killsToAdd;
         killedText.text = "Enemies Killed: " + enemiesKilled;
     }
@@ -140,24 +123,24 @@ public class GameManager : MonoBehaviour
     {
         // Logic for ending the round
         timeLeft = 10;
-        isInShop = true;
-        playerCamera.isInShop = isInShop;
 
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
-        uiControl.HideUI(timerText);
-        uiControl.HideUI(killedText);
-        uiControl.ShowUI(shopText);
         ShopTime();
     }
 
     public void RoundActive() 
     {
+        // Manage thr round being active
         if (isGameActive == true && hasRoundStarted == true)
         {
-           spawnManager.SpawnRandomEnemy();
-           hasRoundStarted = false;
+            roundText.text = "Round: " + roundCounter;
+            uiController.ShowUI(timerText);
+            uiController.ShowUI(killedText);
+            uiController.HideUI(shopText);
+            spawnManager.SpawnRandomEnemy();
+            hasRoundStarted = false;
         }
     }
 
@@ -167,6 +150,9 @@ public class GameManager : MonoBehaviour
         groundObject.SetActive(false);
         shopManager.SpawnShop();
         playerController.MovePlayerToShop();
+        uiController.HideUI(timerText);
+        uiController.HideUI(killedText);
+        uiController.ShowUI(shopText);
     }
 
     public void NextRound() 
@@ -175,40 +161,36 @@ public class GameManager : MonoBehaviour
         shopManager.DespawnShop();
         // Spawn the ground
         groundObject.SetActive(true);
-
         // Increment the round counter
         roundCounter++;
-        roundText.text = "Round: " + roundCounter;
-
-        // Add back in hidden UI Elements
-        uiControl.ShowUI(timerText);
-        uiControl.ShowUI(killedText);
-        uiControl.HideUI(shopText);
-
         // Reset the time for the new round (e.g., 10 seconds)
         timeLeft = 30.0f;
-
         // Set the game as active for the new round
         isGameActive = true;
-
         // Reset the flag to allow spawning new enemies
         hasRoundStarted = true;
-
-        // Set isInShop to false if it's intended to exit the shop for the new round
-        isInShop = false;
-        playerCamera.isInShop = isInShop;
-
         spawnManager.SetRoundActive(true);
         // Call the method to spawn enemies for the new round
         RoundActive();
     }
 
     // Player health UI
-    public void PlayerHealthUI() 
+    public void PlayerHealth() 
     {
-        // Get the player health
-        playerHealth = playerController.playerHealth;
-        // Set text for player health
         playerHealthText.text = "Health: " + playerHealth;
+        if (playerHit) {
+            playerHealth -= 1;
+            playerHit = false;
+        }
+        if (playerHealth < 1)
+        {
+            RestartGame();
+        }
+    }
+
+    // Restart Game
+    public void RestartGame() 
+    {
+        SceneManager.LoadScene("Game");
     }
 }
