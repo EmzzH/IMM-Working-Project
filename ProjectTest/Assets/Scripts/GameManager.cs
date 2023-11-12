@@ -16,8 +16,11 @@ public class GameManager : MonoBehaviour
     private int killsToAdd;
 
     // Coins collected UI
-    public int coinsCollected;
+    public int coinsCollected = 0;
     public TextMeshProUGUI coinsText;
+
+    // SHop UI
+    public TextMeshProUGUI shopText;
 
     // Round timer & text
     private float timeLeft = 0.00f;
@@ -47,7 +50,6 @@ public class GameManager : MonoBehaviour
     // Shop
     public GameObject shopPrefab;
     private bool isInShop = true;
-    public TextMeshProUGUI shopHeaderText;
 
     // Ground
     public GameObject groundObject;
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour
         enemiesKilled = 0;
         UpdateEnemiesKilled(killsToAdd);
 
+        roundText.text = "Round: " + roundCounter;
+        coinsText.text = "Coins: " + coinsCollected;
         // Call spawn manager & shooter enemy
         spawnManager = FindObjectOfType<SpawnManager>();
         
@@ -102,15 +106,14 @@ public class GameManager : MonoBehaviour
     public void UpdateEnemiesKilled(int killsToAdd) 
     {
         
-        killedText.text = "Enemies Killed: ";
+        killedText.text = "Enemies Killed: " + enemiesKilled;
         enemiesKilled += killsToAdd;
         killedText.text = "Enemies Killed: " + enemiesKilled;
     }
 
+    // Coins collected
     public void UpdateCoinCollected(int coinsToAdd) 
     {
-        // coinsText.text = "Coins: ";
-        Debug.Log("Coin Collected");
         coinsCollected += coinsToAdd;
         coinsText.text = "Coins: " + coinsCollected;
     }
@@ -129,8 +132,6 @@ public class GameManager : MonoBehaviour
     public void RoundEnded() 
     {
         // Logic for ending the round
-        print("round over");
-
         timeLeft = 10;
         isInShop = true;
         playerCamera.isInShop = isInShop;
@@ -140,6 +141,7 @@ public class GameManager : MonoBehaviour
         spawnManager.CullEnemies();
         uiControl.HideUI(timerText);
         uiControl.HideUI(killedText);
+        uiControl.ShowUI(shopText);
         ShopTime();
     }
 
@@ -152,13 +154,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Time for shop
     public void ShopTime()
     {
         groundObject.SetActive(false);
-        // Spawn the shop
-        //Vector3 spawnPos = new Vector3(0,0,0);
-        //Instantiate(shopPrefab, spawnPos, Quaternion.identity);
-
         shopManager.SpawnShop();
     }
 
@@ -172,6 +171,11 @@ public class GameManager : MonoBehaviour
         // Increment the round counter
         roundCounter++;
         roundText.text = "Round: " + roundCounter;
+
+        // Add back in hidden UI Elements
+        uiControl.ShowUI(timerText);
+        uiControl.ShowUI(killedText);
+        uiControl.HideUI(shopText);
 
         // Reset the time for the new round (e.g., 10 seconds)
         timeLeft = 30.0f;
