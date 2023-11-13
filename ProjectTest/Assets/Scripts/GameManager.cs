@@ -148,11 +148,12 @@ public class GameManager : MonoBehaviour
     public void ShopTime()
     {
         groundObject.SetActive(false);
-        shopManager.SpawnShop();
-        playerController.MovePlayerToShop();
-        uiController.HideUI(timerText);
-        uiController.HideUI(killedText);
-        uiController.ShowUI(shopText);
+        SceneManager.LoadScene(2);
+        //shopManager.SpawnShop();
+        //playerController.MovePlayerToShop();
+        //uiController.HideUI(timerText);
+        //uiController.HideUI(killedText);
+        //uiController.ShowUI(shopText);
     }
 
     public void NextRound() 
