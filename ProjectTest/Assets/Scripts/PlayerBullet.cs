@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBullet : MonoBehaviour
 {
@@ -43,6 +44,15 @@ public class PlayerBullet : MonoBehaviour
         if (other.CompareTag("ShopObject"))
         {
             Destroy(gameObject);
+            //Destroy shop objects
+            Destroy(other.gameObject);
+        }
+        //Exit and Load new Scene
+        if (other.CompareTag("Exit"))
+        {
+            Destroy(gameObject);
+            //Load the Game Again
+            SceneManager.LoadScene(1);
         }
     }
 }

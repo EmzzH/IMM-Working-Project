@@ -111,9 +111,9 @@ public class PlayerController : MonoBehaviour
     public void MovePlayerToShop() 
     {
         // Get player position
-        Transform playerPosition = transform;
+        //Transform playerPosition = transform;
         // Move player
-        playerPosition.position = playerShopPosition;
+       // playerPosition.position = playerShopPosition;
     }
 
     public void PlayerHit() 

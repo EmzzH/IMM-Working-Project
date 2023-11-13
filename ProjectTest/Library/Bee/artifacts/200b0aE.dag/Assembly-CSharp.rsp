@@ -365,6 +365,7 @@
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/SceneController.cs"
 "Assets/Scripts/ShooterEnemyScript.cs"
+"Assets/Scripts/Shop.cs"
 "Assets/Scripts/ShopManager.cs"
 "Assets/Scripts/Shotgun.cs"
 "Assets/Scripts/SpawnManager.cs"
