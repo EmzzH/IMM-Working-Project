@@ -147,18 +147,20 @@ public class GameManager : MonoBehaviour
     // Time for shop
     public void ShopTime()
     {
-        groundObject.SetActive(false);
-        shopManager.SpawnShop();
-        playerController.MovePlayerToShop();
-        uiController.HideUI(timerText);
-        uiController.HideUI(killedText);
-        uiController.ShowUI(shopText);
+        //Load Shop Scene
+        SceneManager.LoadScene(2);
+        //groundObject.SetActive(false);
+       // shopManager.SpawnShop();
+        //playerController.MovePlayerToShop();
+       // uiController.HideUI(timerText);
+    //uiController.HideUI(killedText);
+       // uiController.ShowUI(shopText);
     }
 
     public void NextRound() 
     {
         // Despawn shop
-        shopManager.DespawnShop();
+        //shopManager.DespawnShop();
         // Spawn the ground
         groundObject.SetActive(true);
         // Increment the round counter
@@ -184,13 +186,15 @@ public class GameManager : MonoBehaviour
         }
         if (playerHealth < 1)
         {
-            RestartGame();
+            //You're Dead
+            SceneManager.LoadScene(4);
+            //RestartGame();
         }
     }
 
     // Restart Game
-    public void RestartGame() 
-    {
-        SceneManager.LoadScene("Game");
-    }
+    //public void RestartGame() 
+    //{
+       // SceneManager.LoadScene("Game");
+    //}
 }
