@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     private int roundCounter;
     private int playerHealth;
     // Game Active
-    public bool isGameActive;
-    private bool hasRoundStarted;
-    public bool playerHit;
+    public bool isGameActive = true;
+    private bool hasRoundStarted = true;
+    public bool playerHit = false;
     // Enemies drop coin
     private float coinChance;
 
