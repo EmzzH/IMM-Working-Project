@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour
     // Declare variables
     private int enemiesKilled;
     public int coinsCollected;
-    private float timeLeft;
     private int roundCounter;
     private int playerHealth;
+
+    private float timeLeft;
     // Game Active
     public bool isGameActive = true;
     private bool hasRoundStarted = true;
@@ -45,17 +46,44 @@ public class GameManager : MonoBehaviour
     public GameObject groundObject;
     // Shop manager
     private ShopManager shopManager;
+    // DataManager
+    private DataManager dataManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Initial game state
-        enemiesKilled = 0;
-        coinsCollected = 0;
-        timeLeft = 20;
-        roundCounter = 1;
-        coinChance = 0.5f;
+        // Get the dataManager
+        dataManager = FindObjectOfType<DataManager>();
+        // Set player health
         playerHealth = 3;
+        // Increment round counter
+        
+        // Logic for first round
+        if(dataManager.roundCounter == 0) 
+        { 
+            // Initial game state
+            enemiesKilled = 0;
+            coinsCollected = 0;
+            playerHealth = 3;
+            roundCounter++;
+            dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
+            // Increment round
+            roundCounter++;
+        }
+
+        if (dataManager.roundCounter > 1) 
+        { 
+            // Get data from dataManager
+            enemiesKilled = dataManager.enemiesKilled;
+            coinsCollected = dataManager.coinsCollected;
+            // Update coins collected
+            UpdateCoinCollected(0);
+            roundCounter = dataManager.roundCounter;
+            playerHealth = dataManager.playerHealth;
+        }
+        
+        timeLeft = 3;
+        coinChance = 0.5f;
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
@@ -70,6 +98,7 @@ public class GameManager : MonoBehaviour
 
         // Get the ShopManager
         shopManager = FindObjectOfType<ShopManager>();
+
     }
 
     // Update is called once per frame
@@ -85,6 +114,7 @@ public class GameManager : MonoBehaviour
             if (timeLeft < 0)
             {
                 RoundEnded();
+                dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
             }
         }
     }
@@ -108,6 +138,11 @@ public class GameManager : MonoBehaviour
         coinsText.text = "Coins: " + coinsCollected;
     }
 
+    public void UpdateRoundText(int roundCounter)
+    {
+        roundText.text = "Round: " + dataManager.roundCounter;
+    }
+
     public void CoinDrop(Vector3 enemyPosition) 
     {
         // Spawn coin 50% chance
@@ -123,7 +158,6 @@ public class GameManager : MonoBehaviour
     {
         // Logic for ending the round
         timeLeft = 10;
-
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
@@ -135,7 +169,7 @@ public class GameManager : MonoBehaviour
         // Manage thr round being active
         if (isGameActive == true && hasRoundStarted == true)
         {
-            roundText.text = "Round: " + roundCounter;
+            UpdateRoundText(roundCounter);
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
             uiController.HideUI(shopText);
@@ -164,7 +198,7 @@ public class GameManager : MonoBehaviour
         // Spawn the ground
         groundObject.SetActive(true);
         // Increment the round counter
-        roundCounter++;
+        
         // Reset the time for the new round (e.g., 10 seconds)
         timeLeft = 30.0f;
         // Set the game as active for the new round

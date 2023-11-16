@@ -355,6 +355,7 @@
 -analyzer:"D:/UnityEditor/2022.3.11f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/BoomEnemyScript.cs"
 "Assets/Scripts/CoinScript.cs"
+"Assets/Scripts/DataManager.cs"
 "Assets/Scripts/EnemyBullet.cs"
 "Assets/Scripts/EnemyMovement.cs"
 "Assets/Scripts/EnemyScript.cs"
