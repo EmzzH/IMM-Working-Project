@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public bool isGameActive = true;
     private bool hasRoundStarted = true;
     public bool playerHit = false;
+    public bool isShop = false;
     // Enemies drop coin
     private float coinChance;
 
@@ -47,30 +48,32 @@ public class GameManager : MonoBehaviour
     private SpawnManager spawnManager;
     // UI Controller
     private UIController uiController;
-    // Player
-    private PlayerController playerController;
     // Shop
     public GameObject shopPrefab;
     // Ground
     public GameObject groundObject;
-    // Shop manager
-    private ShopManager shopManager;
     // DataManager
     private DataManager dataManager;
+    // PlayerController
+    private PlayerController playerController;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        // Set the initial variables - We can edit these to change difficulty
+        // Set the initial variables - We can edit these to change difficulty (Used for resetting)
         initialHealth = 3;
         initialEnemiesKilled = 0;
         initialRoundCounter = 0;
         initialCoinsCollected = 0;
 
+
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
-        
-        // Logic for first round
+        // Get the playerController
+        playerController = FindObjectOfType<PlayerController>();
+
+        // Logic for first round DATA
         if(dataManager.roundCounter == 0) 
         { 
             // Initial game state
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
             dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
         }
 
+        // Logic for later round DATA
         if (dataManager.roundCounter > 1) 
         { 
             // Get data from dataManager
@@ -89,14 +93,13 @@ public class GameManager : MonoBehaviour
             // Update coins collected, enemies killed
             UpdateCoinCollected(0);
             UpdateEnemiesKilled(0);
-            // Increment round
-            //roundCounter++;
+
             roundCounter = dataManager.roundCounter;
             playerHealth = dataManager.playerHealth;
         }
         
         timeLeft = 5;
-        coinChance = 0.5f;
+        coinChance = 0f;
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
@@ -105,13 +108,6 @@ public class GameManager : MonoBehaviour
         spawnManager = FindObjectOfType<SpawnManager>();
         // Get the UIController
         uiController = FindObjectOfType<UIController>();
-
-        // Get the PlayerController
-        playerController = FindObjectOfType<PlayerController>();
-
-        // Get the ShopManager
-        shopManager = FindObjectOfType<ShopManager>();
-
     }
 
     // Update is called once per frame
@@ -126,6 +122,7 @@ public class GameManager : MonoBehaviour
             // End the round
             if (timeLeft < 0)
             {
+                
                 RoundEnded();
             }
         }
@@ -169,12 +166,14 @@ public class GameManager : MonoBehaviour
     public void RoundEnded() 
     {
         // Logic for ending the round
+        isShop = true;
         roundCounter++;
         timeLeft = 10;
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
         dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
+       
         ShopTime();
     }
 
@@ -183,6 +182,7 @@ public class GameManager : MonoBehaviour
         // Manage thr round being active
         if (isGameActive == true && hasRoundStarted == true)
         {
+            
             UpdateRoundText(roundCounter);
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
@@ -196,6 +196,7 @@ public class GameManager : MonoBehaviour
     public void ShopTime()
     {
         //Load Shop Scene
+        
         SceneManager.LoadScene(2);
         //groundObject.SetActive(false);
        // shopManager.SpawnShop();
@@ -209,6 +210,7 @@ public class GameManager : MonoBehaviour
     {
         // Despawn shop
         //shopManager.DespawnShop();
+        //isShop = false;
         // Spawn the ground
         groundObject.SetActive(true);
         // Increment the round counter

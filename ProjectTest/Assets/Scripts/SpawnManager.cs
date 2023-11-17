@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+
     // Decalre object for enemy prefabs
     public GameObject[] enemyPrefabs;
     // Boundary
@@ -31,11 +32,7 @@ public class SpawnManager : MonoBehaviour
     // Shop Prefabs
     public GameObject[] shopPrefabs;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+  
 
     // Spawn random ball at random x and y position in play area
     public void SpawnRandomEnemy()

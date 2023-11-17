@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2107,6 +2107,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3419745948809300344, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1125172812}
+    - target: {fileID: 3419745948809300344, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3419745948809300344, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
+      propertyPath: planeCollider
+      value: 
+      objectReference: {fileID: 1817721811}
     - target: {fileID: 5217152125553162857, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2615,6 +2627,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationSceneName: 
+  currentScene: 
+  isShop: 0
 --- !u!114 &1911444001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2624,7 +2638,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1911443995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd394837ff5404a8fa81fb471fe2299d, type: 3}
+  m_Script: {fileID: 11500000, guid: 9da7c6f754483d0449a302be6e047566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807

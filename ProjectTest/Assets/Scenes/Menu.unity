@@ -583,6 +583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationSceneName: 
+  currentScene: 
+  isShop: 0
 --- !u!1 &1282873950
 GameObject:
   m_ObjectHideFlags: 0

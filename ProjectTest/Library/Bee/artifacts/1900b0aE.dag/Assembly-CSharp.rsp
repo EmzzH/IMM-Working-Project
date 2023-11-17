@@ -359,7 +359,6 @@
 "Assets/Scripts/EnemyBullet.cs"
 "Assets/Scripts/EnemyMovement.cs"
 "Assets/Scripts/EnemyScript.cs"
-"Assets/Scripts/ExitShop.cs"
 "Assets/Scripts/ExplosionScript.cs"
 "Assets/Scripts/FollowPlayer.cs"
 "Assets/Scripts/GameManager.cs"

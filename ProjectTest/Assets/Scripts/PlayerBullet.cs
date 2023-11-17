@@ -41,11 +41,12 @@ public class PlayerBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Shop object being destroyed
         if (other.CompareTag("ShopObject"))
         {
             Destroy(gameObject);
             //Destroy shop objects
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
         }
         //Exit and Load new Scene
         if (other.CompareTag("Exit"))

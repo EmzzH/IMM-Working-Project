@@ -31,26 +31,6 @@ public class DataManager : MonoBehaviour
         DataManager.Instance.roundCounter = roundCounter;
         DataManager.Instance.playerHealth = playerHealth;
     }
-
-    public int ReturnKills() 
-    {
-        return enemiesKilled;
-    }
-
-    public int ReturnCoins()
-    {
-        return coinsCollected;
-    }
-
-    public int ReturnRounds()
-    {
-        return roundCounter;
-    }
-
-    public int ReturnHealth()
-    {
-        return playerHealth;
-    }
 }
 
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
@@ -14,10 +15,12 @@ public class PlayerController : MonoBehaviour
     public GameObject playerBullet;
     // Gun prefab
     public GameObject playerGun;
-    // Spawn manager
-    private SpawnManager spawnManager;
     // Game manager
     public GameManager gameManager;
+    // Scene manager
+    private SceneController sceneManager;
+    // Data manager
+    private DataManager dataManager;
 
     // Player location for shop
     private Vector3 playerShopPosition = new Vector3(0, 1, 0);
@@ -43,8 +46,14 @@ public class PlayerController : MonoBehaviour
     // Is hit boolean
     public bool isHit = false;
 
+    // Player money
+    public int playerMoney = 0;
+
     void Start()
     {
+        // Set dataManager
+        dataManager = FindObjectOfType<DataManager>();
+        
         // Set game manager
         gameManager = FindObjectOfType<GameManager>();
         // Set up for looking at mouse
@@ -53,10 +62,9 @@ public class PlayerController : MonoBehaviour
 
         // Set the firepoint
         firePoint = playerGun.transform;
-
-        // Set spawn manager
-        spawnManager = FindObjectOfType<SpawnManager>();
         
+        // Set Scene manager
+        sceneManager = FindObjectOfType<SceneController>();
 
         // Set the player colour
         playerMat.SetColor("_Color", Color.green);
@@ -68,10 +76,12 @@ public class PlayerController : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical"));
         // Move player character
         transform.position += input.normalized * speed * Time.deltaTime;
-
+       
         // Fire weapon
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            playerMoney = dataManager.coinsCollected;
+            print(playerMoney);
             Fire();
         }
 
@@ -102,18 +112,7 @@ public class PlayerController : MonoBehaviour
     void Fire()
     {
         // Instantiate a bullet at the fire point's position and rotation
-        GameObject bullet = Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
-        // Add the bullets to the list in spawn manager
-        spawnManager.activeBullets.Add(bullet);
-    }
-
-    // Move the player to the shop when it is entered
-    public void MovePlayerToShop() 
-    {
-        // Get player position
-        //Transform playerPosition = transform;
-        // Move player
-       // playerPosition.position = playerShopPosition;
+        Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
     }
 
     public void PlayerHit() 

@@ -7,28 +7,29 @@ public class Shotgun : MonoBehaviour
     // Weapons variables
     private int price = 3;
     private int fireRate = 1;
+    public int localMoney;
 
-    // Get game manager
-    private GameManager gameManager;
+   public PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Get the game manager
-        gameManager = GetComponent<GameManager>();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        localMoney = playerController.playerMoney;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (gameManager.coinsCollected >= price)
+        if (localMoney >= price)
         {
+            
             Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }
