@@ -10,11 +10,20 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    // Declare variables
+    // Declare initial state variables
+    private int initialEnemiesKilled;
+    private int initialCoinsCollected;
+    private int initialRoundCounter;
+    private int initialHealth;
+
+    // Declare variables that will change
     private int enemiesKilled;
     public int coinsCollected;
     private int roundCounter;
     private int playerHealth;
+
+    // Initial health - To be modified by difficulty
+    
 
     private float timeLeft;
     // Game Active
@@ -52,11 +61,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set the initial variables - We can edit these to change difficulty
+        initialHealth = 3;
+        initialEnemiesKilled = 0;
+        initialRoundCounter = 0;
+        initialCoinsCollected = 0;
+
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
-        // Set player health
-        playerHealth = 3;
-        // Increment round counter
         
         // Logic for first round
         if(dataManager.roundCounter == 0) 
@@ -64,11 +76,9 @@ public class GameManager : MonoBehaviour
             // Initial game state
             enemiesKilled = 0;
             coinsCollected = 0;
-            playerHealth = 3;
+            playerHealth = initialHealth;
             roundCounter++;
             dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
-            // Increment round
-            roundCounter++;
         }
 
         if (dataManager.roundCounter > 1) 
@@ -76,13 +86,16 @@ public class GameManager : MonoBehaviour
             // Get data from dataManager
             enemiesKilled = dataManager.enemiesKilled;
             coinsCollected = dataManager.coinsCollected;
-            // Update coins collected
+            // Update coins collected, enemies killed
             UpdateCoinCollected(0);
+            UpdateEnemiesKilled(0);
+            // Increment round
+            //roundCounter++;
             roundCounter = dataManager.roundCounter;
             playerHealth = dataManager.playerHealth;
         }
         
-        timeLeft = 3;
+        timeLeft = 5;
         coinChance = 0.5f;
         isGameActive = true;
         hasRoundStarted = true;
@@ -114,7 +127,6 @@ public class GameManager : MonoBehaviour
             if (timeLeft < 0)
             {
                 RoundEnded();
-                dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
             }
         }
     }
@@ -157,10 +169,12 @@ public class GameManager : MonoBehaviour
     public void RoundEnded() 
     {
         // Logic for ending the round
+        roundCounter++;
         timeLeft = 10;
         isGameActive = false;
         spawnManager.SetRoundActive(false);
         spawnManager.CullEnemies();
+        dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
         ShopTime();
     }
 
@@ -221,14 +235,25 @@ public class GameManager : MonoBehaviour
         if (playerHealth < 1)
         {
             //You're Dead
+            // Reset variables
+            playerHealth = initialHealth;
+            coinsCollected = 0;
+
+            // Reset the variables and load them into the data manager
+            ResetVariables();
+            dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
+
             SceneManager.LoadScene(4);
+
             //RestartGame();
         }
     }
 
-    // Restart Game
-    //public void RestartGame() 
-    //{
-       // SceneManager.LoadScene("Game");
-    //}
+    public void ResetVariables()
+    {
+        playerHealth = initialHealth;
+        coinsCollected = initialCoinsCollected;
+        roundCounter = initialRoundCounter;
+        enemiesKilled = initialEnemiesKilled;
+    }
 }

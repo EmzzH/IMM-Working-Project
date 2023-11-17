@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
 
     // Delay for Spawn
     private float startDelay = 2.0f;
-    private float spawnInterval = 2.0f;
+    private float spawnInterval = 1.0f;
 
     // Round counter
     bool isGameActive = true;
