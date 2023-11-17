@@ -8,7 +8,6 @@ public class ShooterEnemyScript : MonoBehaviour
 {
     // Set variables for movment
     private float speed = 40f;
-    private float rotationSpeed = 50f;
     private float maxSpeed = 50f;
     private float radius = 10f;
 

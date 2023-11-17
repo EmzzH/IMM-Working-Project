@@ -3,22 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement
 {
-    // Player Object
-    private GameObject player;
-
-    private void Start()
-    {
-        // Set player object
-        GameObject player = GameObject.Find("Player");
-    }
-
-    private void Update()
-    {
-        
-    }
-
     public void MoveEnemy(Rigidbody enemyRb, float speed, float rotationSpeed, float maxSpeed)
     {
 
