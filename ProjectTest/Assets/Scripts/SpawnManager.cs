@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    // DataManager
+    private DataManager dataManager;
 
     // Decalre object for enemy prefabs
     public GameObject[] enemyPrefabs;
@@ -25,31 +27,71 @@ public class SpawnManager : MonoBehaviour
 
     // List of active enemies
     private List<GameObject> activeEnemies = new List<GameObject>();
-
     // List of all active bullets
     public List<GameObject> activeBullets = new List<GameObject>();
-
     // Shop Prefabs
     public GameObject[] shopPrefabs;
+    // Enemy types for spawning
+    public GameObject runnerEnemy;
+    public GameObject boomEnemy;
+    public GameObject shooterEnemy;
+    public GameObject[] allEnemyPrefabs;
+    // Round counter
+    private int roundCounter;
+    
 
-  
+    void Start() 
+    {
+        // Get the dataManager
+        dataManager = FindObjectOfType<DataManager>();
+
+        // Initialise round counter
+        roundCounter = dataManager.roundCounter;
+
+        UpdateEnemyPrefabs(roundCounter);
+    }
+
+    // Update the prefabs
+    void UpdateEnemyPrefabs(int round)
+    {
+        if (round == 1)
+        {
+            enemyPrefabs = new GameObject[] { runnerEnemy };
+        }
+        else if (round == 2)
+        {
+            enemyPrefabs = new GameObject[] { boomEnemy };
+        }
+        else if (round == 3)
+        {
+            enemyPrefabs = new GameObject[] { shooterEnemy };
+        }
+        else
+        {
+            enemyPrefabs = allEnemyPrefabs;
+        }
+    }
+
 
     // Spawn random ball at random x and y position in play area
     public void SpawnRandomEnemy()
     {
+        
+
+
+        // Spawn enemy
         if (isGameActive)
         {
+            print(roundCounter);
             // Random position
             float randomX = Random.Range(minX, maxX);
             float randomZ = Random.Range(minZ, maxZ);
-
             // Generate random enemy index and random spawn position
             Vector3 spawnPos = new Vector3(randomX, yPos, randomZ);
-
-            // instantiate ball at random spawn location
-            // Random ball number
-            int enemyArray = Random.Range(0, enemyPrefabs.Length);
-            GameObject enemyInstance = Instantiate(enemyPrefabs[enemyArray], spawnPos, enemyPrefabs[enemyArray].transform.rotation);
+            // instantiate enemy at random spawn location
+            // Random enemy number
+            int enemyArrayPos = Random.Range(0, enemyPrefabs.Length);
+            GameObject enemyInstance = Instantiate(enemyPrefabs[enemyArrayPos], spawnPos, enemyPrefabs[enemyArrayPos].transform.rotation);
             // spawn ball at random times
             spawnInterval = Random.Range(startDelay, 4f);
 
@@ -63,17 +105,16 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
-    }
 
     // Set round over to stop enemies spawning
     public void SetRoundActive(bool isGameActive)
     {
         this.isGameActive = isGameActive;
     }
+
+
+
 
     // Cull active enemies
     public void CullEnemies() 

@@ -404,10 +404,8 @@ MonoBehaviour:
   coinsCollected: 0
   isGameActive: 0
   playerHit: 0
-  isShop: 0
   killedText: {fileID: 413778706}
   coinsText: {fileID: 1746415937}
-  shopText: {fileID: 0}
   timerText: {fileID: 380591342}
   roundText: {fileID: 281063145}
   playerHealthText: {fileID: 1915881869}
@@ -1134,9 +1132,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 6981264542789531936, guid: e7697b963679e94499f00dd7c3d17e7a, type: 3}
-  - {fileID: 5967083845781901655, guid: 49c0ee9f68effa64e85ebd0b1f2a8b63, type: 3}
   - {fileID: 718490231511830399, guid: 242c463193e1bf944ab861141955bef7, type: 3}
+  - {fileID: 5967083845781901655, guid: 49c0ee9f68effa64e85ebd0b1f2a8b63, type: 3}
+  - {fileID: 6981264542789531936, guid: e7697b963679e94499f00dd7c3d17e7a, type: 3}
   activeBullets: []
   shopPrefabs:
   - {fileID: 1387238390833740999, guid: cf5f4fb25d5f78748a92a27f034386a6, type: 3}
@@ -1144,6 +1142,13 @@ MonoBehaviour:
   - {fileID: 2703295378487921670, guid: 04890cac754772643b82779ff679d5b6, type: 3}
   - {fileID: 6325395753657253597, guid: c3a8670e6f29a5f4cb3245459fd559c1, type: 3}
   - {fileID: 3471277122799993424, guid: 4730ac38cb5b27e45ad456a6b33a5684, type: 3}
+  runnerEnemy: {fileID: 718490231511830399, guid: 242c463193e1bf944ab861141955bef7, type: 3}
+  boomEnemy: {fileID: 5967083845781901655, guid: 49c0ee9f68effa64e85ebd0b1f2a8b63, type: 3}
+  shooterEnemy: {fileID: 6981264542789531936, guid: e7697b963679e94499f00dd7c3d17e7a, type: 3}
+  allEnemyPrefabs:
+  - {fileID: 5922584102565699186, guid: 58c1ff4e95a7ab2409544aba0fdc6d4b, type: 3}
+  - {fileID: 5967083845781901655, guid: 49c0ee9f68effa64e85ebd0b1f2a8b63, type: 3}
+  - {fileID: 6981264542789531936, guid: e7697b963679e94499f00dd7c3d17e7a, type: 3}
 --- !u!4 &1306402327
 Transform:
   m_ObjectHideFlags: 0

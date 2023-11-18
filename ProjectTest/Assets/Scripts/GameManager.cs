@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         initialEnemiesKilled = 0;
         initialRoundCounter = 0;
         initialCoinsCollected = 0;
-        timeLeft = 5;
+        timeLeft = 20;
         coinChance = 0f;
         isGameActive = true;
         hasRoundStarted = true;
@@ -188,10 +188,11 @@ public class GameManager : MonoBehaviour
         // Manage thr round being active
         if (isGameActive == true && hasRoundStarted == true)
         {
-            
+            print(roundCounter);
             UpdateRoundText(roundCounter);
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
+            
             spawnManager.SpawnRandomEnemy();
             hasRoundStarted = false;
         }

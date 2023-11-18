@@ -80,8 +80,8 @@ public class PlayerController : MonoBehaviour
         // Fire weapon
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            // Set the player money for shop interactions
             playerMoney = dataManager.coinsCollected;
-            print(playerMoney);
             Fire();
         }
 
