@@ -9,12 +9,18 @@ public class Shotgun : MonoBehaviour
     private int fireRate = 1;
     public int localMoney;
 
-   public PlayerController playerController;
+    // DataManager
+    private DataManager dataManager;
+    // Player controller
+    public PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Get the datamanager
         playerController = FindObjectOfType<PlayerController>();
+        // Get the dataManager
+        dataManager = FindObjectOfType<DataManager>();
     }
 
     // Update is called once per frame
@@ -25,9 +31,13 @@ public class Shotgun : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Buying shotgun
         if (localMoney >= price)
         {
-            
+            // Change price
+            localMoney -= price;
+            // Set the datamanger price
+            dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
             Destroy(other.gameObject);
         }

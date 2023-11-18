@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
                 firePoint.forward = this.fireDirection.normalized;
             }
         }
-
+        // Player hit
         if (isHit) 
         {
             PlayerHit();

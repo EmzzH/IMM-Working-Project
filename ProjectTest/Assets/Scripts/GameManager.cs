@@ -30,14 +30,12 @@ public class GameManager : MonoBehaviour
     public bool isGameActive = true;
     private bool hasRoundStarted = true;
     public bool playerHit = false;
-    public bool isShop = false;
     // Enemies drop coin
     private float coinChance;
 
     // UI elements
     public TextMeshProUGUI killedText;
     public TextMeshProUGUI coinsText;
-    public TextMeshProUGUI shopText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerHealthText;
@@ -66,6 +64,11 @@ public class GameManager : MonoBehaviour
         initialEnemiesKilled = 0;
         initialRoundCounter = 0;
         initialCoinsCollected = 0;
+        timeLeft = 5;
+        coinChance = 0f;
+        isGameActive = true;
+        hasRoundStarted = true;
+        playerHit = false;
 
 
         // Get the dataManager
@@ -73,6 +76,15 @@ public class GameManager : MonoBehaviour
         // Get the playerController
         playerController = FindObjectOfType<PlayerController>();
 
+        /* 
+         * Logic for tutoral eg. first 3 rounds
+         * Round 1 - Just running enemies
+         * Round 2 - Just boom enemies
+         * Round 3 - Just shooters
+         * Round 4 - Tutorial end : all enemies
+         * Round 5 - Rounds get harder from here
+         */
+         
         // Logic for first round DATA
         if(dataManager.roundCounter == 0) 
         { 
@@ -98,11 +110,7 @@ public class GameManager : MonoBehaviour
             playerHealth = dataManager.playerHealth;
         }
         
-        timeLeft = 5;
-        coinChance = 0f;
-        isGameActive = true;
-        hasRoundStarted = true;
-        playerHit = false;
+        
 
         // Call SpawnManager
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -122,7 +130,6 @@ public class GameManager : MonoBehaviour
             // End the round
             if (timeLeft < 0)
             {
-                
                 RoundEnded();
             }
         }
@@ -166,7 +173,6 @@ public class GameManager : MonoBehaviour
     public void RoundEnded() 
     {
         // Logic for ending the round
-        isShop = true;
         roundCounter++;
         timeLeft = 10;
         isGameActive = false;
@@ -186,7 +192,6 @@ public class GameManager : MonoBehaviour
             UpdateRoundText(roundCounter);
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
-            uiController.HideUI(shopText);
             spawnManager.SpawnRandomEnemy();
             hasRoundStarted = false;
         }
@@ -196,25 +201,12 @@ public class GameManager : MonoBehaviour
     public void ShopTime()
     {
         //Load Shop Scene
-        
         SceneManager.LoadScene(2);
-        //groundObject.SetActive(false);
-       // shopManager.SpawnShop();
-        //playerController.MovePlayerToShop();
-       // uiController.HideUI(timerText);
-    //uiController.HideUI(killedText);
-       // uiController.ShowUI(shopText);
     }
 
     public void NextRound() 
     {
-        // Despawn shop
-        //shopManager.DespawnShop();
-        //isShop = false;
-        // Spawn the ground
         groundObject.SetActive(true);
-        // Increment the round counter
-        
         // Reset the time for the new round (e.g., 10 seconds)
         timeLeft = 30.0f;
         // Set the game as active for the new round
@@ -234,9 +226,9 @@ public class GameManager : MonoBehaviour
             playerHealth -= 1;
             playerHit = false;
         }
+        // You die
         if (playerHealth < 1)
         {
-            //You're Dead
             // Reset variables
             playerHealth = initialHealth;
             coinsCollected = 0;
@@ -246,8 +238,6 @@ public class GameManager : MonoBehaviour
             dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
 
             SceneManager.LoadScene(4);
-
-            //RestartGame();
         }
     }
 
