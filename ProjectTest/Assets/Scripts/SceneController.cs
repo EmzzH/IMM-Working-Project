@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
+    // DataManager
+    public DataManager dataManager;
 
     public string destinationSceneName;
     public string currentScene;
-
     public bool isShop;
 
     void Start()
@@ -32,5 +33,17 @@ public class SceneController : MonoBehaviour
         this.currentScene = sceneName;
         SceneManager.LoadScene(sceneName);
     }
+
+    public void SkipTutoiral(int roundCounter) 
+    {
+        dataManager.roundCounter = roundCounter;
+    }
+
+    public void SkipTutorialBool(bool skipTutorial) 
+    {
+        dataManager.SetSkippedTutorial(skipTutorial);
+    }
+
+
 }
 

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public int coinsCollected;
     private int roundCounter;
     private int playerHealth;
+    private bool isSkippedTutorial;
 
     // Initial health - To be modified by difficulty
     
@@ -69,10 +70,12 @@ public class GameManager : MonoBehaviour
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
-
+        
 
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
+        // Tutorial skip
+        isSkippedTutorial = dataManager.GetSkippedTutorial();
         // Get the playerController
         playerController = FindObjectOfType<PlayerController>();
 
@@ -86,7 +89,7 @@ public class GameManager : MonoBehaviour
          */
          
         // Logic for first round DATA
-        if(dataManager.roundCounter == 0) 
+        if(dataManager.roundCounter <= 1) 
         { 
             // Initial game state
             enemiesKilled = 0;
@@ -98,7 +101,17 @@ public class GameManager : MonoBehaviour
 
         // Logic for later round DATA
         if (dataManager.roundCounter > 1) 
-        { 
+        {
+            // Player health for when you skip the tutorial
+            if (isSkippedTutorial) 
+            {
+                playerHealth = initialHealth;
+                dataManager.SetSkippedTutorial(false);
+            }
+            if (!isSkippedTutorial) 
+            {
+                playerHealth = dataManager.playerHealth;
+            }
             // Get data from dataManager
             enemiesKilled = dataManager.enemiesKilled;
             coinsCollected = dataManager.coinsCollected;
@@ -107,7 +120,7 @@ public class GameManager : MonoBehaviour
             UpdateEnemiesKilled(0);
 
             roundCounter = dataManager.roundCounter;
-            playerHealth = dataManager.playerHealth;
+            
         }
         
         
@@ -125,8 +138,9 @@ public class GameManager : MonoBehaviour
         {
             timeLeft -= Time.deltaTime;
             Timer(timeLeft);
-            PlayerHealth();
             RoundActive();
+            PlayerHealth();
+           
             // End the round
             if (timeLeft < 0)
             {
@@ -159,6 +173,11 @@ public class GameManager : MonoBehaviour
         roundText.text = "Round: " + dataManager.roundCounter;
     }
 
+    public void UpdateHealthText() 
+    {
+        playerHealthText.text = "Health: " + dataManager.playerHealth;
+    }
+
     public void CoinDrop(Vector3 enemyPosition) 
     {
         // Spawn coin 50% chance
@@ -188,8 +207,8 @@ public class GameManager : MonoBehaviour
         // Manage thr round being active
         if (isGameActive == true && hasRoundStarted == true)
         {
-            print(roundCounter);
             UpdateRoundText(roundCounter);
+            
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
             
@@ -222,9 +241,18 @@ public class GameManager : MonoBehaviour
     // Player health UI
     public void PlayerHealth() 
     {
-        playerHealthText.text = "Health: " + playerHealth;
+        // Set the player health for ths skip & reset bool to false
+        if (isSkippedTutorial) 
+        {
+            dataManager.playerHealth = initialHealth;
+            playerHealth = dataManager.playerHealth;
+            isSkippedTutorial = dataManager.GetSkippedTutorial();
+        }
+        UpdateHealthText();
         if (playerHit) {
             playerHealth -= 1;
+            dataManager.playerHealth = playerHealth;
+            UpdateHealthText();
             playerHit = false;
         }
         // You die
@@ -237,7 +265,8 @@ public class GameManager : MonoBehaviour
             // Reset the variables and load them into the data manager
             ResetVariables();
             dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
-
+                
+            // Load death screen
             SceneManager.LoadScene(4);
         }
     }

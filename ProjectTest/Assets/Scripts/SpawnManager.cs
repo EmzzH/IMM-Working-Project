@@ -82,7 +82,6 @@ public class SpawnManager : MonoBehaviour
         // Spawn enemy
         if (isGameActive)
         {
-            print(roundCounter);
             // Random position
             float randomX = Random.Range(minX, maxX);
             float randomZ = Random.Range(minZ, maxZ);

@@ -356,6 +356,7 @@
 "Assets/Scripts/BoomEnemyScript.cs"
 "Assets/Scripts/CoinScript.cs"
 "Assets/Scripts/DataManager.cs"
+"Assets/Scripts/DeadScene.cs"
 "Assets/Scripts/EnemyBullet.cs"
 "Assets/Scripts/EnemyMovement.cs"
 "Assets/Scripts/EnemyScript.cs"
