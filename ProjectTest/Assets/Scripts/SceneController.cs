@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class SceneController : MonoBehaviour
 {
     // DataManager
-    public DataManager dataManager;
+    private DataManager dataManager;
 
     public string destinationSceneName;
     public string currentScene;
-    public bool isShop;
+    
 
     void Start()
     {
- 
+        dataManager = FindObjectOfType<DataManager>();
     }
 
     void Update()
@@ -25,25 +25,22 @@ public class SceneController : MonoBehaviour
         //}
     }
 
-
     public void LoadScene(string sceneName)
     {
         print("Scene change");
         print(sceneName);
-        this.currentScene = sceneName;
+        //this.currentScene = sceneName;
         SceneManager.LoadScene(sceneName);
     }
 
-    public void SkipTutoiral(int roundCounter) 
-    {
+    public void SetDataRound(int roundCounter) 
+    { 
         dataManager.roundCounter = roundCounter;
     }
 
-    public void SkipTutorialBool(bool skipTutorial) 
-    {
-        dataManager.SetSkippedTutorial(skipTutorial);
+    public void SetDataSkip(bool isSkippedTutorial) 
+    { 
+        dataManager.isSkippedTutorial = isSkippedTutorial;
     }
-
-
 }
 

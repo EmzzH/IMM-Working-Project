@@ -76,9 +76,6 @@ public class SpawnManager : MonoBehaviour
     // Spawn random ball at random x and y position in play area
     public void SpawnRandomEnemy()
     {
-        
-
-
         // Spawn enemy
         if (isGameActive)
         {

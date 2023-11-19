@@ -11,7 +11,7 @@ public class DataManager : MonoBehaviour
     public int coinsCollected;
     public int roundCounter;
     public int playerHealth;
-    private bool isSkippedTutorial = false;
+    public bool isSkippedTutorial;
     public int highScore;
     private void Awake()
     {
@@ -46,6 +46,11 @@ public class DataManager : MonoBehaviour
     public bool GetSkippedTutorial()
     {
         return this.isSkippedTutorial;
+    }
+
+    public void SetRound(int roundCounter)
+    {
+        this.roundCounter = roundCounter;
     }
 }
 

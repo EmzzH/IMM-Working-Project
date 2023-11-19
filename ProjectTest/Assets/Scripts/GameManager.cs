@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI tutorialText;
 
     // Game Objects
     public GameObject coinPrefab;
@@ -60,6 +61,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get the dataManager
+        dataManager = FindObjectOfType<DataManager>();
+        // Tutorial skip
+        isSkippedTutorial = dataManager.GetSkippedTutorial();
         // Set the initial variables - We can edit these to change difficulty (Used for resetting)
         initialHealth = 3;
         initialEnemiesKilled = 0;
@@ -71,11 +76,6 @@ public class GameManager : MonoBehaviour
         hasRoundStarted = true;
         playerHit = false;
         
-
-        // Get the dataManager
-        dataManager = FindObjectOfType<DataManager>();
-        // Tutorial skip
-        isSkippedTutorial = dataManager.GetSkippedTutorial();
         // Get the playerController
         playerController = FindObjectOfType<PlayerController>();
 
@@ -105,12 +105,14 @@ public class GameManager : MonoBehaviour
             // Player health for when you skip the tutorial
             if (isSkippedTutorial) 
             {
+                roundCounter = dataManager.roundCounter;
                 playerHealth = initialHealth;
                 dataManager.SetSkippedTutorial(false);
             }
             if (!isSkippedTutorial) 
             {
                 playerHealth = dataManager.playerHealth;
+                roundCounter = dataManager.roundCounter;
             }
             // Get data from dataManager
             enemiesKilled = dataManager.enemiesKilled;
@@ -118,9 +120,7 @@ public class GameManager : MonoBehaviour
             // Update coins collected, enemies killed
             UpdateCoinCollected(0);
             UpdateEnemiesKilled(0);
-
-            roundCounter = dataManager.roundCounter;
-            
+            dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
         }
         
         
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
             Timer(timeLeft);
             RoundActive();
             PlayerHealth();
-           
+            
             // End the round
             if (timeLeft < 0)
             {
@@ -211,7 +211,7 @@ public class GameManager : MonoBehaviour
             
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
-            
+            //TutorialUI();
             spawnManager.SpawnRandomEnemy();
             hasRoundStarted = false;
         }
@@ -277,5 +277,25 @@ public class GameManager : MonoBehaviour
         coinsCollected = initialCoinsCollected;
         roundCounter = initialRoundCounter;
         enemiesKilled = initialEnemiesKilled;
+    }
+
+    public void TutorialUI() 
+    {
+        if (dataManager.roundCounter == 1)
+        {
+            tutorialText.text = "WASD to Move, Left Click to Shoot";
+        }
+        if (dataManager.roundCounter == 2)
+        {
+            tutorialText.text = "Watch out for explosions!";
+        }
+        if (dataManager.roundCounter == 3)
+        {
+            tutorialText.text = "Dont get shot!";
+        }
+        if (dataManager.roundCounter >= 4)
+        {
+            uiController.HideUI(tutorialText);
+        }
     }
 }
