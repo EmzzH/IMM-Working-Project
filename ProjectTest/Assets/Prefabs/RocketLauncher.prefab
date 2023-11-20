@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 133785388642134875}
   - component: {fileID: 6482489182071573490}
   - component: {fileID: 7410799370690703728}
+  - component: {fileID: 6442966063308157518}
   m_Layer: 0
   m_Name: RocketLauncher
   m_TagString: ShopObject
@@ -105,3 +106,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 14.211696, z: 1}
   m_Center: {x: 0, y: -1.7098721, z: 0}
+--- !u!114 &6442966063308157518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703295378487921670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6cddee40c225842a739201ecc87b08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

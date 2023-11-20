@@ -26,7 +26,7 @@ public class Shotgun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        localMoney = playerController.playerMoney;
+        localMoney = dataManager.coinsCollected;
     }
 
     private void OnTriggerEnter(Collider other)

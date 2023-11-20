@@ -54,8 +54,6 @@ public class GameManager : MonoBehaviour
     public GameObject groundObject;
     // DataManager
     private DataManager dataManager;
-    // PlayerController
-    private PlayerController playerController;
 
 
     // Start is called before the first frame update
@@ -75,9 +73,6 @@ public class GameManager : MonoBehaviour
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
-        
-        // Get the playerController
-        playerController = FindObjectOfType<PlayerController>();
 
         /* 
          * Logic for tutoral eg. first 3 rounds
@@ -152,7 +147,6 @@ public class GameManager : MonoBehaviour
     public void Timer(float timeLeft) 
     {
         timerText.SetText("Time: " + Mathf.Round(timeLeft));
-
     }
     // Update enemy killed UI
     public void UpdateEnemiesKilled(int killsToAdd) 
@@ -211,7 +205,7 @@ public class GameManager : MonoBehaviour
             
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
-            //TutorialUI();
+            TutorialUI();
             spawnManager.SpawnRandomEnemy();
             hasRoundStarted = false;
         }
@@ -285,15 +279,7 @@ public class GameManager : MonoBehaviour
         {
             tutorialText.text = "WASD to Move, Left Click to Shoot";
         }
-        if (dataManager.roundCounter == 2)
-        {
-            tutorialText.text = "Watch out for explosions!";
-        }
-        if (dataManager.roundCounter == 3)
-        {
-            tutorialText.text = "Dont get shot!";
-        }
-        if (dataManager.roundCounter >= 4)
+        if (dataManager.roundCounter > 1)
         {
             uiController.HideUI(tutorialText);
         }

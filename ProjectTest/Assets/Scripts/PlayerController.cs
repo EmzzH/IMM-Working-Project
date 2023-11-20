@@ -46,9 +46,6 @@ public class PlayerController : MonoBehaviour
     // Is hit boolean
     public bool isHit = false;
 
-    // Player money
-    public int playerMoney = 0;
-
     void Start()
     {
         // Set dataManager
@@ -80,8 +77,8 @@ public class PlayerController : MonoBehaviour
         // Fire weapon
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            print(dataManager.coinsCollected);
             // Set the player money for shop interactions
-            playerMoney = dataManager.coinsCollected;
             Fire();
         }
 

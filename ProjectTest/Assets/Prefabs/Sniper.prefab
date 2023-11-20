@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1349914787014737304}
   - component: {fileID: 998655279685903566}
   - component: {fileID: 4803775497354819117}
+  - component: {fileID: -2686126028930685131}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: ShopObject
@@ -105,3 +106,15 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 14.812603, z: 1}
   m_Center: {x: 0, y: -1.880774, z: 0}
+--- !u!114 &-2686126028930685131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 576002813648097471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9351d515ce5d14889fb00f842e6b74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
