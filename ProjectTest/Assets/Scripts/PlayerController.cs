@@ -46,6 +46,12 @@ public class PlayerController : MonoBehaviour
     // Is hit boolean
     public bool isHit = false;
 
+    // Gun logic
+    private bool isReloading;
+    public string playerWeapon;
+
+    private float fireTimer = 0.0f;
+
     void Start()
     {
         // Set dataManager
@@ -65,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
         // Set the player colour
         playerMat.SetColor("_Color", Color.green);
+
     }
 
     void Update()
@@ -73,13 +80,52 @@ public class PlayerController : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical"));
         // Move player character
         transform.position += input.normalized * speed * Time.deltaTime;
-       
+
+        // Timer for firing
+        fireTimer += Time.deltaTime;
+
         // Fire weapon
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            print(dataManager.coinsCollected);
-            // Set the player money for shop interactions
-            Fire();
+            playerWeapon = dataManager.playerWeapon;
+            // Check for reload
+            if (isReloading)
+            {
+                return;            
+            }
+
+            // Fire bullet
+            if (playerWeapon == "pistol" && dataManager.ammunition > 0)
+            {
+                Fire();
+            }
+
+            if (playerWeapon == "shotgun" && dataManager.ammunition > 0)
+            {
+                Fire();
+            }
+
+
+            // Reload
+            else if(dataManager.ammunition <= 0)
+            {
+                StartCoroutine(Reload());
+            }
+        }
+
+        // Reload Logic
+        IEnumerator Reload()
+        {
+            isReloading = true;
+            Debug.Log("Reloading...");
+
+            // Wait for the specified reload time
+            yield return new WaitForSeconds(dataManager.reloadTime);
+
+            // Reset ammunition
+            dataManager.ammunition = dataManager.initialAmmunition;
+            isReloading = false;
+            Debug.Log("Reloaded!");
         }
 
         // Look at mouse
@@ -108,8 +154,46 @@ public class PlayerController : MonoBehaviour
 
     void Fire()
     {
-        // Instantiate a bullet at the fire point's position and rotation
-        Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
+        // Checking for fireRate
+        if (fireTimer < dataManager.fireRate)
+        {
+            return; // Not enough time has passed, do not fire
+        }
+
+        // Only reset the timer if we're actually firing
+        fireTimer = 0.0f;
+
+
+        if (playerWeapon == "pistol")
+        {
+            // Decrease ammunition
+            dataManager.ammunition--;
+            // Instantiate a bullet at the fire point's position and rotation
+            Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
+        }
+
+        if (playerWeapon == "shotgun")
+        {
+            // Decrease ammunition
+            dataManager.ammunition--;
+            // Offset to shoot multiple projectiles
+            float shotgunOffset = 20.0f;
+
+            // Convert fire direction to a rotation
+            Quaternion baseRotation = Quaternion.LookRotation(fireDirection);
+
+            // Get the offset rotations
+            Quaternion leftRotation = baseRotation * Quaternion.Euler(0, -shotgunOffset, 0);
+            Quaternion rightRotation = baseRotation * Quaternion.Euler(0, shotgunOffset, 0);
+
+            // Instantiate bullets with offset rotations
+            // Central bullet
+            Instantiate(playerBullet, firePoint.position, baseRotation);
+            // Left bullet
+            Instantiate(playerBullet, firePoint.position, leftRotation);
+            // Right bullet
+            Instantiate(playerBullet, firePoint.position, rightRotation); 
+        }
     }
 
     public void PlayerHit() 

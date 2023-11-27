@@ -13,6 +13,31 @@ public class DataManager : MonoBehaviour
     public int playerHealth;
     public bool isSkippedTutorial;
     public int highScore;
+
+
+    // Weapon data
+    public int initialMagazine;
+    public int initialAmmunition;
+
+    public int magazineSize;
+    public int ammunition;
+    
+    public float fireRate;
+    public float reloadTime;
+
+    public string playerWeapon;
+
+    public void Start()
+    {
+        playerWeapon = "pistol";
+        initialAmmunition = 10;
+        ammunition = 10;
+
+        reloadTime = 2f;
+
+        fireRate = 0.3f;
+    }
+
     private void Awake()
     {
         if (Instance != null)

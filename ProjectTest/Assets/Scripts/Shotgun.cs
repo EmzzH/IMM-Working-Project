@@ -6,7 +6,7 @@ public class Shotgun : MonoBehaviour
 {
     // Weapons variables
     private int price = 3;
-    private int fireRate = 1;
+    private float fireRate = 0.5f;
     public int localMoney;
 
     // DataManager
@@ -40,6 +40,14 @@ public class Shotgun : MonoBehaviour
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
             Destroy(other.gameObject);
+
+            // Update data manager
+            dataManager.initialAmmunition = 5;
+            dataManager.initialMagazine = 5;
+            dataManager.ammunition = 5;
+            dataManager.fireRate = fireRate;
+            playerController.playerWeapon = "shotgun";
+            dataManager.playerWeapon = "shotgun";
         }
     }
 }
