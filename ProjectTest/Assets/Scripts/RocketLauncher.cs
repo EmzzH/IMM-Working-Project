@@ -6,7 +6,9 @@ public class RocketLauncher : MonoBehaviour
 {
     // Weapons variables
     private int price = 8;
+    private float fireRate = 0.5f;
     public int localMoney;
+
     // DataManager
     private DataManager dataManager;
     // Player controller
@@ -38,6 +40,14 @@ public class RocketLauncher : MonoBehaviour
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
             Destroy(other.gameObject);
+
+            // Update datamanager for weapon
+            dataManager.initialAmmunition = 3;
+            dataManager.initialMagazine = 3;
+            dataManager.ammunition = 3;
+            dataManager.fireRate = fireRate;
+            playerController.playerWeapon = "rocketlauncher";
+            dataManager.playerWeapon = "rocketlauncher";
         }
     }
 }

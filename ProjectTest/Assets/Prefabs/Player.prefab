@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
+  playerRocket: {fileID: 1783106780403429546, guid: 4588bb6cab9e72d43b4c27e702acf4ae, type: 3}
   playerGun: {fileID: 6388398440179048823}
   gameManager: {fileID: 0}
   speedCam: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   planeCollider: {fileID: 0}
   playerMat: {fileID: 2100000, guid: 34bf3558a30b8f847b7832e39fe54d9c, type: 2}
   isHit: 0
+  playerWeapon: 
 --- !u!54 &707383288390994464
 Rigidbody:
   m_ObjectHideFlags: 0

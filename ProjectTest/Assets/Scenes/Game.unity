@@ -2232,6 +2232,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 350696834}
+    - target: {fileID: 3419745948809300344, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
+      propertyPath: playerRocket
+      value: 
+      objectReference: {fileID: 1783106780403429546, guid: 4588bb6cab9e72d43b4c27e702acf4ae, type: 3}
     - target: {fileID: 5217152125553162857, guid: d5aa40e451b31454ca7a6550b052e0c9, type: 3}
       propertyPath: m_Name
       value: Player

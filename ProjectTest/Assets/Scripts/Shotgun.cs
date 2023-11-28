@@ -41,7 +41,7 @@ public class Shotgun : MonoBehaviour
             Destroy(gameObject);
             Destroy(other.gameObject);
 
-            // Update data manager
+            // Update data manager for weapon
             dataManager.initialAmmunition = 5;
             dataManager.initialMagazine = 5;
             dataManager.ammunition = 5;

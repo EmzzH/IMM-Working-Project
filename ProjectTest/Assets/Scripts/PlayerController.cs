@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float speed = 10.0f;
     //bullet prefab
     public GameObject playerBullet;
+    // Rocket prefab
+    public GameObject playerRocket;
     // Gun prefab
     public GameObject playerGun;
     // Game manager
@@ -105,9 +107,13 @@ public class PlayerController : MonoBehaviour
                 Fire();
             }
 
+            if (playerWeapon == "rocketlauncher" && dataManager.ammunition > 0)
+            {
+                Fire();
+            }
 
             // Reload
-            else if(dataManager.ammunition <= 0)
+            else if (dataManager.ammunition <= 0)
             {
                 StartCoroutine(Reload());
             }
@@ -193,6 +199,15 @@ public class PlayerController : MonoBehaviour
             Instantiate(playerBullet, firePoint.position, leftRotation);
             // Right bullet
             Instantiate(playerBullet, firePoint.position, rightRotation); 
+        }
+
+        if (playerWeapon == "rocketlauncher")
+        {
+            // Decrease ammunition
+            dataManager.ammunition--;
+            // Shoot bullet and rocket
+            Instantiate(playerRocket, firePoint.position, Quaternion.LookRotation(fireDirection));
+
         }
     }
 

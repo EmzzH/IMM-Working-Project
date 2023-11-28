@@ -368,6 +368,7 @@
 "Assets/Scripts/PlayerBullet.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/RocketLauncher.cs"
+"Assets/Scripts/RocketScript.cs"
 "Assets/Scripts/SceneController.cs"
 "Assets/Scripts/ShooterEnemyScript.cs"
 "Assets/Scripts/Shop.cs"

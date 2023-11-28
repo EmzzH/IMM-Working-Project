@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     // Declare variables that will change
     private int enemiesKilled;
-    public int coinsCollected;
+    public int coinsCollected = 8;
     private int roundCounter;
     private int playerHealth;
     private bool isSkippedTutorial;
