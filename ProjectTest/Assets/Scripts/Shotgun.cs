@@ -45,6 +45,7 @@ public class Shotgun : MonoBehaviour
             dataManager.initialAmmunition = 5;
             dataManager.initialMagazine = 5;
             dataManager.ammunition = 5;
+            dataManager.reloadTime = 1;
             dataManager.fireRate = fireRate;
             playerController.playerWeapon = "shotgun";
             dataManager.playerWeapon = "shotgun";

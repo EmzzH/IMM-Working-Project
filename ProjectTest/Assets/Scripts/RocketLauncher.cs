@@ -45,6 +45,7 @@ public class RocketLauncher : MonoBehaviour
             dataManager.initialAmmunition = 3;
             dataManager.initialMagazine = 3;
             dataManager.ammunition = 3;
+            dataManager.reloadTime = 1.5f;
             dataManager.fireRate = fireRate;
             playerController.playerWeapon = "rocketlauncher";
             dataManager.playerWeapon = "rocketlauncher";

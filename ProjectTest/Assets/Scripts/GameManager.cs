@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     // Declare variables that will change
     private int enemiesKilled;
-    public int coinsCollected = 8;
+    public int coinsCollected;
     private int roundCounter;
     private int playerHealth;
     private bool isSkippedTutorial;
@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI roundText;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI tutorialText;
+    public TextMeshProUGUI ammoText;
 
     // Game Objects
     public GameObject coinPrefab;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
     // DataManager
     private DataManager dataManager;
 
+    private bool isReloading1;
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +75,7 @@ public class GameManager : MonoBehaviour
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
-
+        
         /* 
          * Logic for tutoral eg. first 3 rounds
          * Round 1 - Just running enemies
@@ -117,8 +119,9 @@ public class GameManager : MonoBehaviour
             UpdateEnemiesKilled(0);
             dataManager.SaveData(enemiesKilled, coinsCollected, roundCounter, playerHealth);
         }
+
         
-        
+        UpdateAmmoText(isReloading1);
 
         // Call SpawnManager
         spawnManager = FindObjectOfType<SpawnManager>();
@@ -170,6 +173,19 @@ public class GameManager : MonoBehaviour
     public void UpdateHealthText() 
     {
         playerHealthText.text = "Health: " + dataManager.playerHealth;
+    }
+
+    public void UpdateAmmoText(bool isReloading) 
+    {
+        if (dataManager.ammunition > 0)
+        {
+            ammoText.text = "Ammo: " + dataManager.ammunition;
+        }
+        if (isReloading)
+        {
+            ammoText.text = "Reloading...";
+        }
+
     }
 
     public void CoinDrop(Vector3 enemyPosition) 
@@ -271,6 +287,7 @@ public class GameManager : MonoBehaviour
         coinsCollected = initialCoinsCollected;
         roundCounter = initialRoundCounter;
         enemiesKilled = initialEnemiesKilled;
+        dataManager.ResetWeapon();
     }
 
     public void TutorialUI() 

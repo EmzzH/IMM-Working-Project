@@ -29,13 +29,7 @@ public class DataManager : MonoBehaviour
 
     public void Start()
     {
-        playerWeapon = "pistol";
-        initialAmmunition = 10;
-        ammunition = 10;
-
-        reloadTime = 2f;
-
-        fireRate = 0.3f;
+        ResetWeapon();
     }
 
     private void Awake()
@@ -48,6 +42,17 @@ public class DataManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void ResetWeapon()
+    {
+        playerWeapon = "pistol";
+        initialAmmunition = 10;
+        ammunition = 10;
+
+        reloadTime = 2f;
+
+        fireRate = 0.3f;
     }
 
     public void SaveData(int enemiesKilled, int coinsCollected, int roundCounter, int playerHealth)

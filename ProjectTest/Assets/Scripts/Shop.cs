@@ -26,6 +26,8 @@ public class Shop : MonoBehaviour
     {
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
+
+        dataManager.ammunition = dataManager.initialAmmunition;
         // Display for round 1 shop tutoiral screen
         if (dataManager.roundCounter == 2) 
         {

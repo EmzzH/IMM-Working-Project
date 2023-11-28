@@ -3107,7 +3107,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Sniper
+  m_text: 'Machine gun
 
     5 Gold'
   m_isRightToLeft: 0

@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         fireTimer += Time.deltaTime;
 
         // Fire weapon
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
             playerWeapon = dataManager.playerWeapon;
             // Check for reload
@@ -112,6 +112,11 @@ public class PlayerController : MonoBehaviour
                 Fire();
             }
 
+            if (playerWeapon == "machinegun" && dataManager.ammunition > 0) 
+            {
+                Fire();
+            }
+
             // Reload
             else if (dataManager.ammunition <= 0)
             {
@@ -123,15 +128,20 @@ public class PlayerController : MonoBehaviour
         IEnumerator Reload()
         {
             isReloading = true;
-            Debug.Log("Reloading...");
-
+            if (gameManager != null)
+            {
+                gameManager.UpdateAmmoText(isReloading);
+            }
             // Wait for the specified reload time
             yield return new WaitForSeconds(dataManager.reloadTime);
 
             // Reset ammunition
             dataManager.ammunition = dataManager.initialAmmunition;
             isReloading = false;
-            Debug.Log("Reloaded!");
+            if (gameManager != null)
+            {
+                gameManager.UpdateAmmoText(isReloading);
+            }
         }
 
         // Look at mouse
@@ -207,7 +217,20 @@ public class PlayerController : MonoBehaviour
             dataManager.ammunition--;
             // Shoot bullet and rocket
             Instantiate(playerRocket, firePoint.position, Quaternion.LookRotation(fireDirection));
+        }
 
+        if (playerWeapon == "machinegun")
+        {
+            // Decrease ammunition
+            dataManager.ammunition--;
+            // Shoot bullet and rocket
+            Instantiate(playerBullet, firePoint.position, Quaternion.LookRotation(fireDirection));
+        }
+
+        // Check for game manager
+        if (gameManager != null)
+        {
+            gameManager.UpdateAmmoText(isReloading);
         }
     }
 
