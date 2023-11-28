@@ -38,6 +38,9 @@ public class Grenade : MonoBehaviour
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
             Destroy(other.gameObject);
+
+            dataManager.hasGrenade = true;
+            dataManager.grenadeFireRate = 3f;
         }
     }
 }

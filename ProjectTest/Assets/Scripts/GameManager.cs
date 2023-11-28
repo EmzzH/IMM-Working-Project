@@ -288,6 +288,7 @@ public class GameManager : MonoBehaviour
         roundCounter = initialRoundCounter;
         enemiesKilled = initialEnemiesKilled;
         dataManager.ResetWeapon();
+        dataManager.hasGrenade = false;
     }
 
     public void TutorialUI() 
