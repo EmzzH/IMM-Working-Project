@@ -27,9 +27,6 @@ public class DataManager : MonoBehaviour
 
     public string playerWeapon;
 
-    public bool hasGrenade;
-    public float grenadeFireRate;
-
     public void Start()
     {
         ResetWeapon();

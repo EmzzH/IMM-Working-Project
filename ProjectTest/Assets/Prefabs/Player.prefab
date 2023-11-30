@@ -123,7 +123,6 @@ MonoBehaviour:
   playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
   playerRocket: {fileID: 1783106780403429546, guid: 4588bb6cab9e72d43b4c27e702acf4ae, type: 3}
   playerGun: {fileID: 6388398440179048823}
-  playerGrenade: {fileID: 557899722750512109, guid: 2fd5fa5b4706fd048b070db7c0b54990, type: 3}
   gameManager: {fileID: 0}
   speedCam: 0
   cam: {fileID: 0}

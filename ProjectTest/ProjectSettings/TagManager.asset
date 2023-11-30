@@ -11,7 +11,6 @@ TagManager:
   - ShopObject
   - Explosion
   - Exit
-  - Ground
   layers:
   - Default
   - TransparentFX

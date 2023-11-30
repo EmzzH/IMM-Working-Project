@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     public GameObject playerRocket;
     // Gun prefab
     public GameObject playerGun;
-    // Grenade prefab
-    public GameObject playerGrenade;
     // Game manager
     public GameManager gameManager;
     // Scene manager
@@ -126,13 +124,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && dataManager.hasGrenade)
-        {
-            throwGrenade();
-        }
-
-            // Reload Logic
-            IEnumerator Reload()
+        // Reload Logic
+        IEnumerator Reload()
         {
             isReloading = true;
             if (gameManager != null)
@@ -241,24 +234,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void throwGrenade() 
-    {
-        float offsetHeight = 1f;
-        // Offset to instantiate the grenade above the player
-        Vector3 throwStartPosition = firePoint.position + Vector3.up * offsetHeight;
-
-        GameObject grenade = Instantiate(playerGrenade, throwStartPosition, firePoint.rotation);
-        // Get the Rigidbody component from the instantiated grenade
-        Rigidbody rb = grenade.GetComponent<Rigidbody>();
-
-        // Calculate the throw force (adjust these values as needed)
-        float throwForce = 10f; // Overall strength of the throw
-        float throwUpwardForce = 5f; // Upward force to give it an arc
-
-        // Apply force to the Rigidbody
-        Vector3 throwDirection = firePoint.forward * throwForce + firePoint.up * throwUpwardForce;
-        rb.AddForce(throwDirection, ForceMode.VelocityChange);
-    }
     public void PlayerHit() 
     {
         playerMat.SetColor("_Color", Color.red);
