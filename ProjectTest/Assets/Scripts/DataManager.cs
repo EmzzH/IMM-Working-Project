@@ -27,6 +27,11 @@ public class DataManager : MonoBehaviour
 
     public string playerWeapon;
 
+    public bool hasMine;
+    public int maxMines = 3;
+    public int mineCount = 0;
+    public float mineLayTime = 2f;
+
     public void Start()
     {
         ResetWeapon();

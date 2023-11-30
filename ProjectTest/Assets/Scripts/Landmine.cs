@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Grenade : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Grenade : MonoBehaviour
     private DataManager dataManager;
     // Player controller
     public PlayerController playerController;
+    // Explosion object
+    public GameObject explosion;
+    // Landmine location
+    Vector3 landminePosition;
 
     void Start()
     {
@@ -18,11 +23,15 @@ public class Grenade : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
+        // Decrease round count on dataManager
+        dataManager.mineCount++;
     }
 
 
     void Update()
     {
+        // Get landmine location
+        landminePosition = transform.position;
         // Get the players money
         localMoney = dataManager.coinsCollected;
     }
@@ -30,7 +39,7 @@ public class Grenade : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Buying item
-        if (localMoney >= price)
+        if (other.CompareTag("PlayerBullet") && localMoney >= price && SceneManager.GetActiveScene().buildIndex == 2)
         {
             // Change price
             localMoney -= price;
@@ -38,6 +47,18 @@ public class Grenade : MonoBehaviour
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
             Destroy(other.gameObject);
+
+            // Update datamanager for mine
+            dataManager.hasMine = true;
+        }
+
+        // Landmine interaction in game
+        if ((other.CompareTag("PlayerBullet") || other.CompareTag("Enemy") || other.CompareTag("EnemyBullet") || other.CompareTag("Explosion")) && SceneManager.GetActiveScene().buildIndex == 1) 
+        {
+            // Spawn explosion && destroy object
+            Instantiate(explosion, landminePosition, Quaternion.identity);
+            dataManager.mineCount--;
+            Destroy(gameObject);
         }
     }
 }

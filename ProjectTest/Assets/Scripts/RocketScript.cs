@@ -9,12 +9,9 @@ public class RocketScript : MonoBehaviour
     public float speed = 30.0f;
     private Rigidbody rb;
 
+    // Timers for exploding
     private float detTimer = 0f;
     private float explosionTimer = 1.0f;
-
-    // Game Boundary
-    public float mapBoundX = 40.0f;
-    public float mapBoundZ = 40.0f;
 
     public GameObject explosion;
     Vector3 rocketPosition;
@@ -31,14 +28,8 @@ public class RocketScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Get position
         rocketPosition = transform.position;
-
-        if (rb.transform.position.x > mapBoundX || rb.transform.position.x < -mapBoundX ||
-            rb.transform.position.z > mapBoundZ || rb.transform.position.z < -mapBoundZ
-            && gameObject.CompareTag("PlayerBullet"))
-        {
-            Destroy(gameObject);
-        }
 
         detTimer += Time.deltaTime;
 
@@ -54,20 +45,22 @@ public class RocketScript : MonoBehaviour
     {
         if (other.CompareTag("Enemy") || other.CompareTag("EnemyBullet"))
         {
+            // Spawn explosion && destroy object
             Instantiate(explosion, rocketPosition, Quaternion.identity);
-            // Destroy the shooter enemy GameObject
             Destroy(gameObject);
         }
 
         // Shop object being destroyed
         if (other.CompareTag("ShopObject"))
         {
+            // Spawn explosion && destroy object
             Instantiate(explosion, rocketPosition, Quaternion.identity);
             Destroy(gameObject);
         }
         //Exit and Load new Scene
         if (other.CompareTag("Exit"))
         {
+            // Spawn explosion && destroy object
             Instantiate(explosion, rocketPosition, Quaternion.identity);
             Destroy(gameObject);
             //Load the Game Again

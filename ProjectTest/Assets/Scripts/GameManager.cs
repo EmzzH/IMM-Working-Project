@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI tutorialText;
     public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI minesText;
 
     // Game Objects
     public GameObject coinPrefab;
@@ -75,7 +76,8 @@ public class GameManager : MonoBehaviour
         isGameActive = true;
         hasRoundStarted = true;
         playerHit = false;
-        
+        dataManager.mineCount = 0;
+
         /* 
          * Logic for tutoral eg. first 3 rounds
          * Round 1 - Just running enemies
@@ -84,9 +86,9 @@ public class GameManager : MonoBehaviour
          * Round 4 - Tutorial end : all enemies
          * Round 5 - Rounds get harder from here
          */
-         
+
         // Logic for first round DATA
-        if(dataManager.roundCounter <= 1) 
+        if (dataManager.roundCounter <= 1) 
         { 
             // Initial game state
             enemiesKilled = 0;
@@ -138,7 +140,8 @@ public class GameManager : MonoBehaviour
             Timer(timeLeft);
             RoundActive();
             PlayerHealth();
-            
+            MinesUI();
+
             // End the round
             if (timeLeft < 0)
             {
@@ -234,20 +237,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
-    public void NextRound() 
-    {
-        groundObject.SetActive(true);
-        // Reset the time for the new round (e.g., 10 seconds)
-        timeLeft = 30.0f;
-        // Set the game as active for the new round
-        isGameActive = true;
-        // Reset the flag to allow spawning new enemies
-        hasRoundStarted = true;
-        spawnManager.SetRoundActive(true);
-        // Call the method to spawn enemies for the new round
-        RoundActive();
-    }
-
     // Player health UI
     public void PlayerHealth() 
     {
@@ -288,6 +277,8 @@ public class GameManager : MonoBehaviour
         roundCounter = initialRoundCounter;
         enemiesKilled = initialEnemiesKilled;
         dataManager.ResetWeapon();
+        dataManager.hasMine = false;
+        dataManager.mineCount = 0;
     }
 
     public void TutorialUI() 
@@ -299,6 +290,14 @@ public class GameManager : MonoBehaviour
         if (dataManager.roundCounter > 1)
         {
             uiController.HideUI(tutorialText);
+        }
+    }
+
+    public void MinesUI()
+    {
+        if (dataManager.hasMine)
+        {
+            minesText.text = "Mines: " + (dataManager.maxMines - (dataManager.mineCount-1));
         }
     }
 }

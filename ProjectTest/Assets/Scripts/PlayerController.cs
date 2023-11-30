@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public GameObject playerRocket;
     // Gun prefab
     public GameObject playerGun;
+    // Mine prefab
+    public GameObject playerMine;
     // Game manager
     public GameManager gameManager;
     // Scene manager
@@ -97,6 +99,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Fire bullet
+            /*
             if (playerWeapon == "pistol" && dataManager.ammunition > 0)
             {
                 Fire();
@@ -116,16 +119,26 @@ public class PlayerController : MonoBehaviour
             {
                 Fire();
             }
+            */
 
+            if (dataManager.ammunition > 0)
+            {
+                Fire();
+            }
             // Reload
             else if (dataManager.ammunition <= 0)
             {
                 StartCoroutine(Reload());
             }
         }
+        // Input for laying mindes
+        if (Input.GetKeyDown(KeyCode.Mouse1)) 
+        {
+            layMine();
+        }
 
-        // Reload Logic
-        IEnumerator Reload()
+            // Reload Logic
+            IEnumerator Reload()
         {
             isReloading = true;
             if (gameManager != null)
@@ -231,6 +244,14 @@ public class PlayerController : MonoBehaviour
         if (gameManager != null)
         {
             gameManager.UpdateAmmoText(isReloading);
+        }
+    }
+
+    public void layMine() 
+    {
+        if (dataManager.hasMine && dataManager.mineCount <= dataManager.maxMines)
+        {
+            Instantiate(playerMine, firePoint.position, Quaternion.LookRotation(fireDirection));
         }
     }
 

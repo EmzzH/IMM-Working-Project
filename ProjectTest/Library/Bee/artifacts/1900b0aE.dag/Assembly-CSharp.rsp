@@ -363,7 +363,7 @@
 "Assets/Scripts/ExplosionScript.cs"
 "Assets/Scripts/FollowPlayer.cs"
 "Assets/Scripts/GameManager.cs"
-"Assets/Scripts/Grenade.cs"
+"Assets/Scripts/Landmine.cs"
 "Assets/Scripts/LookAtMouse.cs"
 "Assets/Scripts/MachineGun.cs"
 "Assets/Scripts/PlayerBullet.cs"
