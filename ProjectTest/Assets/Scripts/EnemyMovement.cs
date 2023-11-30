@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemyMovement
@@ -13,13 +14,11 @@ public class EnemyMovement
         
         // Create Vector3 for recording distance
         Vector3 playerDistance = player.transform.position - enemyRb.transform.position;
-        // Float for recording distance
-        float currentDistance = playerDistance.magnitude;
 
         // Set enemy direction towards player goal and move there
         Vector3 lookDirection = player.transform.position - enemyRb.transform.position;
         // Rotate them
-        Vector3 newDirection = Vector3.RotateTowards(enemyRb.transform.forward, lookDirection, rotationSpeed * Time.deltaTime, 0.0f);
+        Vector3.RotateTowards(enemyRb.transform.forward, lookDirection, rotationSpeed * Time.deltaTime, 0.0f);
         // Add the force
         enemyRb.AddForce(lookDirection * speed * Time.deltaTime);
 
@@ -63,6 +62,14 @@ public class EnemyMovement
             Vector3 backwardVelocity = new Vector3(0.0f, 0.0f, -3.0f);
             enemyRb.velocity = backwardVelocity;
         }
+    }
+
+    public void MoveBossEnemy(Rigidbody enemyRb, float rotationSpeed)
+    {
+        // Calculate y-axis rotation in world space
+        Quaternion yRotation = Quaternion.Euler(0, rotationSpeed * Time.deltaTime, 0);
+        // Rotate
+        enemyRb.MoveRotation(enemyRb.rotation * yRotation);
     }
 }
 

@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
     bool isGameActive = true;
 
     // List of active enemies
-    private List<GameObject> activeEnemies = new List<GameObject>();
+    public List<GameObject> activeEnemies = new List<GameObject>();
     // List of all active bullets
     public List<GameObject> activeBullets = new List<GameObject>();
     // Shop Prefabs
@@ -36,6 +36,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject boomEnemy;
     public GameObject shooterEnemy;
     public GameObject[] allEnemyPrefabs;
+    public GameObject shooterBoss;
     // Round counter
     private int roundCounter;
     
@@ -101,7 +102,20 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-
+    public void SpawnShooterBoss() 
+    {
+        if (isGameActive) 
+        {
+            // Set spawn loaction
+            float spawnPosX = 0;
+            float spawnPosZ = 8;
+            Vector3 spawnPos = new Vector3(spawnPosX, yPos, spawnPosZ);
+            // Spawn the boss
+            GameObject enemyInstance = Instantiate(shooterBoss, spawnPos, shooterBoss.transform.rotation);
+            // Add the enemies to the list as they spawn
+            activeEnemies.Add(enemyInstance);
+        }
+    }
 
     // Set round over to stop enemies spawning
     public void SetRoundActive(bool isGameActive)

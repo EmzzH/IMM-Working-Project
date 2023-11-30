@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5027276766024117974}
   - component: {fileID: -629919296048162106}
   - component: {fileID: -879644064413456708}
+  - component: {fileID: 2211285953358153990}
   m_Layer: 0
   m_Name: Rocket
   m_TagString: PlayerBullet
@@ -122,8 +123,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  mapBoundX: 40
-  mapBoundZ: 40
   explosion: {fileID: 7671898561760738930, guid: 8996d5198a39001438da9f1ae70397a4, type: 3}
 --- !u!54 &-879644064413456708
 Rigidbody:
@@ -152,3 +151,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2211285953358153990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783106780403429546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74ec4eb69118b924ebbdc041001c9cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

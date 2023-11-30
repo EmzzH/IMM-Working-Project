@@ -371,6 +371,7 @@
 "Assets/Scripts/RocketLauncher.cs"
 "Assets/Scripts/RocketScript.cs"
 "Assets/Scripts/SceneController.cs"
+"Assets/Scripts/ShooterBossScript.cs"
 "Assets/Scripts/ShooterEnemyScript.cs"
 "Assets/Scripts/Shop.cs"
 "Assets/Scripts/Shotgun.cs"

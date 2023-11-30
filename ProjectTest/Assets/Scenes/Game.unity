@@ -1340,6 +1340,7 @@ MonoBehaviour:
   - {fileID: 718490231511830399, guid: 242c463193e1bf944ab861141955bef7, type: 3}
   - {fileID: 5967083845781901655, guid: 49c0ee9f68effa64e85ebd0b1f2a8b63, type: 3}
   - {fileID: 6981264542789531936, guid: e7697b963679e94499f00dd7c3d17e7a, type: 3}
+  shooterBoss: {fileID: 3963900052572829841, guid: e43171b5f59df35448a63e3d21223acb, type: 3}
 --- !u!4 &1306402327
 Transform:
   m_ObjectHideFlags: 0

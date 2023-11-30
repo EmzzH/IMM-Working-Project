@@ -56,8 +56,10 @@ public class GameManager : MonoBehaviour
     public GameObject groundObject;
     // DataManager
     private DataManager dataManager;
-
+    // Bool for reload
     private bool isReloading1;
+    // Bool for Boss
+    public bool isBossDead;
 
     // Start is called before the first frame update
     void Start()
@@ -141,11 +143,16 @@ public class GameManager : MonoBehaviour
             RoundActive();
             PlayerHealth();
             MinesUI();
-
             // End the round
             if (timeLeft < 0)
             {
                 RoundEnded();
+            }
+            // Set the time to 10
+            if (isBossDead)
+            {
+                timeLeft = 10;
+                isBossDead = false;
             }
         }
     }
@@ -221,11 +228,10 @@ public class GameManager : MonoBehaviour
         if (isGameActive == true && hasRoundStarted == true)
         {
             UpdateRoundText(roundCounter);
-            
             uiController.ShowUI(timerText);
             uiController.ShowUI(killedText);
             TutorialUI();
-            spawnManager.SpawnRandomEnemy();
+            WaveChanger();
             hasRoundStarted = false;
         }
     }
@@ -298,6 +304,21 @@ public class GameManager : MonoBehaviour
         if (dataManager.hasMine)
         {
             minesText.text = "Mines: " + (dataManager.maxMines - (dataManager.mineCount-1));
+        }
+    }
+
+    public void WaveChanger() 
+    {
+        // Normal waves
+        if (dataManager.roundCounter != 5)
+        {
+            spawnManager.SpawnRandomEnemy();
+        }
+        // Boss wave
+        if (dataManager.roundCounter == 5)
+        {
+            spawnManager.SpawnShooterBoss();
+            timeLeft = 300;
         }
     }
 }

@@ -43,7 +43,7 @@ public class ShooterEnemyScript : MonoBehaviour
         // Set Game Gamager
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Set spawn manager
-       spawnManager = FindObjectOfType<SpawnManager>();
+        spawnManager = FindObjectOfType<SpawnManager>();
     }
 
 
