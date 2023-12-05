@@ -163,6 +163,7 @@ MonoBehaviour:
   firePointBack: {fileID: 8228803988370092129}
   firePointLeft: {fileID: 2520316252918603350}
   firePointRight: {fileID: 9010455988994815904}
+  bossMat: {fileID: 2100000, guid: 456e502aaae865940af5f126606f6359, type: 2}
 --- !u!114 &-6642184572034088830
 MonoBehaviour:
   m_ObjectHideFlags: 0

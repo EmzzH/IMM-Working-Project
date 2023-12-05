@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
     RaycastHit hit;
     Ray ray;
 
+    // Keep player in bounds
+    private float xRange = 20;
+    private float zRange = 20;
+
     // Player material
     public Material playerMat;
     // Hurt time
@@ -80,6 +84,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // Keeping player in bounds
+        PlayerBoundaries(transform.position);
+
         // Create input vector 3
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical"));
         // Move player character
@@ -97,29 +104,6 @@ public class PlayerController : MonoBehaviour
             {
                 return;            
             }
-
-            // Fire bullet
-            /*
-            if (playerWeapon == "pistol" && dataManager.ammunition > 0)
-            {
-                Fire();
-            }
-
-            if (playerWeapon == "shotgun" && dataManager.ammunition > 0)
-            {
-                Fire();
-            }
-
-            if (playerWeapon == "rocketlauncher" && dataManager.ammunition > 0)
-            {
-                Fire();
-            }
-
-            if (playerWeapon == "machinegun" && dataManager.ammunition > 0) 
-            {
-                Fire();
-            }
-            */
 
             if (dataManager.ammunition > 0)
             {
@@ -267,6 +251,26 @@ public class PlayerController : MonoBehaviour
             // Reset the player being hit
             timeLeft = 0;   
             isHit = false;
+        }
+    }
+
+    public void PlayerBoundaries(Vector3 playerPosition) 
+    {
+        if (transform.position.x < -xRange)
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z < -zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zRange);
+        }
+        if (transform.position.z > zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
         }
     }
 

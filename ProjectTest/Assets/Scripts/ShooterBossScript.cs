@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
+using TMPro;
 using UnityEngine;
 
 public class ShooterBossScript : MonoBehaviour
@@ -35,7 +36,6 @@ public class ShooterBossScript : MonoBehaviour
     {
         // Set objects
         enemyRb = GetComponent<Rigidbody>();
-
         // Set the firepoint
         firePoint = transform;
 
@@ -49,8 +49,16 @@ public class ShooterBossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Spin boss
-        movement.MoveBossEnemy(enemyRb, rotationSpeed);
+        if (health > 33) {
+            // Spin boss
+            movement.MoveBossEnemy(enemyRb, rotationSpeed);
+        }
+        else if (health < 33) 
+        {
+            // Spin boss faster
+            rotationSpeed = 100f;
+            movement.MoveBossEnemy(enemyRb, rotationSpeed);
+        }
         // if statement for firing
         if (Time.time >= reload)
         {
@@ -95,11 +103,12 @@ public class ShooterBossScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         // Enemy hit
         if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion") || other.CompareTag("Player"))
         {
             health--;
-
+            // Change color on hit
             if (health == 0)
             {
                 // Get the position of the enemy
