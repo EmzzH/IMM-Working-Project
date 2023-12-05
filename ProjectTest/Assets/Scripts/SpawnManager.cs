@@ -10,11 +10,14 @@ public class SpawnManager : MonoBehaviour
 
     // Decalre object for enemy prefabs
     public GameObject[] enemyPrefabs;
-    // Boundary
-    private float minX = -20.0f;
-    private float maxX = 20.0f;
-    private float minZ = -20.0f;
-    private float maxZ = 20.0f;
+
+    // Game boundary
+    private float sideX = 20;
+    private float sideZ = 20;
+
+    // X and Z pos
+    float spawnX;
+    float spawnZ;
     // y position
     private float yPos = 1;
 
@@ -39,9 +42,9 @@ public class SpawnManager : MonoBehaviour
     public GameObject shooterBoss;
     // Round counter
     private int roundCounter;
-    
 
-    void Start() 
+
+    void Start()
     {
         // Get the dataManager
         dataManager = FindObjectOfType<DataManager>();
@@ -81,10 +84,10 @@ public class SpawnManager : MonoBehaviour
         if (isGameActive)
         {
             // Random position
-            float randomX = Random.Range(minX, maxX);
-            float randomZ = Random.Range(minZ, maxZ);
+            GenerateSpawnPos();
+
             // Generate random enemy index and random spawn position
-            Vector3 spawnPos = new Vector3(randomX, yPos, randomZ);
+            Vector3 spawnPos = new Vector3(spawnX, yPos, spawnZ);
             // instantiate enemy at random spawn location
             // Random enemy number
             int enemyArrayPos = Random.Range(0, enemyPrefabs.Length);
@@ -99,12 +102,12 @@ public class SpawnManager : MonoBehaviour
             // Add the enemies to the list as they spawn
             activeEnemies.Add(enemyInstance);
         }
-        
+
     }
 
-    public void SpawnShooterBoss() 
+    public void SpawnShooterBoss()
     {
-        if (isGameActive) 
+        if (isGameActive)
         {
             // Set spawn loaction
             float spawnPosX = 0;
@@ -123,7 +126,42 @@ public class SpawnManager : MonoBehaviour
         this.isGameActive = isGameActive;
     }
 
-
+    public void GenerateSpawnPos() 
+    {
+        float randomNum = Random.value;
+        // Side 1
+        if (randomNum <= 0.25)
+        {
+            float tempX = Random.Range(-sideX, sideX);
+            float tempZ = sideZ;
+            spawnX = tempX;
+            spawnZ = tempZ;
+        }
+        // Side 2
+        if (randomNum > 0.25 && randomNum <= 0.5)
+        {
+            float tempX = sideX;
+            float tempZ = Random.Range(-sideZ, sideZ);
+            spawnX = tempX;
+            spawnZ = tempZ;
+        }
+        // Side 3
+        if (randomNum > 0.5 && randomNum <= 0.75)
+        {
+            float tempX = Random.Range(-sideX, sideX);
+            float tempZ = -sideZ;
+            spawnX = tempX;
+            spawnZ = tempZ;
+        }
+        // Side 4
+        if (randomNum > 0.75 && randomNum <= 1)
+        {
+            float tempX = -sideX;
+            float tempZ = Random.Range(-sideZ, sideZ);
+            spawnX = tempX;
+            spawnZ = tempZ;
+        }
+    }
 
 
     // Cull active enemies
