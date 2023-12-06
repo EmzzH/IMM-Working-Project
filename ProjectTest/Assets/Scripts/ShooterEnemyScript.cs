@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class ShooterEnemyScript : MonoBehaviour
 {
@@ -30,6 +31,9 @@ public class ShooterEnemyScript : MonoBehaviour
     private GameManager gameManager;
     // Spawn manager
     private SpawnManager spawnManager;
+    // Keep enemy in bounds
+    private float xRange = 19.5f;
+    private float zRange = 19.5f;
 
     void Start()
     {
@@ -50,6 +54,8 @@ public class ShooterEnemyScript : MonoBehaviour
 
     void Update()
     {
+        // Keep enemy in boundaries
+        EnemyBoundaries(transform.position);
         // Calculate player direction
         Vector3 playerDirection = player.position - transform.position;
         // Set the enemy to look at the player
@@ -79,6 +85,26 @@ public class ShooterEnemyScript : MonoBehaviour
         spawnManager.activeBullets.Add(bullet);
     }
 
+    // Keep enemy in bounds
+    public void EnemyBoundaries(Vector3 playerPosition)
+    {
+        if (transform.position.x < -xRange)
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z < -zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zRange);
+        }
+        if (transform.position.z > zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         // Enemy die

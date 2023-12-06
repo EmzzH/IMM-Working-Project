@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class EnemyScript : MonoBehaviour
 {
@@ -18,12 +19,16 @@ public class EnemyScript : MonoBehaviour
     // Get the player
     private Transform player;
     private Transform enemyLocation;
+    // Keep enemy in bounds
+    private float xRange = 19.5f;
+    private float zRange = 19.5f;
 
 
     EnemyMovement movement = new EnemyMovement();
 
     void Start()
     {
+
         // Set objects
         enemyRb = GetComponent<Rigidbody>();
         // Set the player
@@ -37,6 +42,8 @@ public class EnemyScript : MonoBehaviour
     
     void Update()
     {
+        // Keep enemy in boundaries
+        EnemyBoundaries(transform.position);
         // Calculate player direction
         Vector3 playerDirection = player.position - transform.position;
         // Set the enemy to look at the player
@@ -44,6 +51,26 @@ public class EnemyScript : MonoBehaviour
         movement.MoveEnemy(enemyRb, speed, rotationSpeed, maxSpeed);
     }
 
+    // Keeep enemies in bounds
+    public void EnemyBoundaries(Vector3 playerPosition)
+    {
+        if (transform.position.x < -xRange)
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
+        if (transform.position.z < -zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, -zRange);
+        }
+        if (transform.position.z > zRange)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("PlayerBullet") || other.CompareTag("Explosion") || other.CompareTag("Player"))

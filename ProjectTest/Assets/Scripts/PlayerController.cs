@@ -254,6 +254,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Player Boundaries
     public void PlayerBoundaries(Vector3 playerPosition) 
     {
         if (transform.position.x < -xRange)
