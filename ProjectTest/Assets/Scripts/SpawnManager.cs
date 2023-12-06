@@ -12,8 +12,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] enemyPrefabs;
 
     // Game boundary
-    private float sideX = 20;
-    private float sideZ = 20;
+    private float sideX = 18;
+    private float sideZ = 18;
 
     // X and Z pos
     float spawnX;
@@ -117,6 +117,19 @@ public class SpawnManager : MonoBehaviour
             GameObject enemyInstance = Instantiate(shooterBoss, spawnPos, shooterBoss.transform.rotation);
             // Add the enemies to the list as they spawn
             activeEnemies.Add(enemyInstance);
+        }
+    }
+
+    public void SpawnAfterBoss() 
+    {
+        for (int i = 0; i < 10; i++) 
+        {
+            int x = 2;
+            int z = 2;
+            Vector3 localSpawn = new Vector3(x, 0, z);
+            Instantiate(shooterEnemy, localSpawn, shooterBoss.transform.rotation);
+            x += 2;
+            z += 2;
         }
     }
 

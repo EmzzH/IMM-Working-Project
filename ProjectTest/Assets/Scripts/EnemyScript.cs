@@ -9,7 +9,7 @@ using UnityEngine.SocialPlatforms;
 public class EnemyScript : MonoBehaviour
 {
     // Set variables
-    private float speed = 5f;
+    private float speed = 15f;
     private float rotationSpeed = 50f;
     private float maxSpeed = 20f;
     private Rigidbody enemyRb;
