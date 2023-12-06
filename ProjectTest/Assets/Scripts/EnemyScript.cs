@@ -8,13 +8,16 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     // Set variables
-    private float speed = 15f;
+    private float speed = 5f;
     private float rotationSpeed = 50f;
     private float maxSpeed = 20f;
     private Rigidbody enemyRb;
     private float distance = 0f;
     // Game manager
     private GameManager gameManager;
+    // Get the player
+    private Transform player;
+    private Transform enemyLocation;
 
 
     EnemyMovement movement = new EnemyMovement();
@@ -23,6 +26,10 @@ public class EnemyScript : MonoBehaviour
     {
         // Set objects
         enemyRb = GetComponent<Rigidbody>();
+        // Set the player
+        player = GameObject.Find("Player").transform;
+        // Set look direction
+        enemyLocation = transform;
         // Set Game Gamager
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
@@ -30,6 +37,10 @@ public class EnemyScript : MonoBehaviour
     
     void Update()
     {
+        // Calculate player direction
+        Vector3 playerDirection = player.position - transform.position;
+        // Set the enemy to look at the player
+        enemyLocation.forward = playerDirection.normalized;
         movement.MoveEnemy(enemyRb, speed, rotationSpeed, maxSpeed);
     }
 

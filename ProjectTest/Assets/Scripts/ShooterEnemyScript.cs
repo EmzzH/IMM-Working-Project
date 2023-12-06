@@ -16,7 +16,8 @@ public class ShooterEnemyScript : MonoBehaviour
 
     // Object for movment
     EnemyMovement movement = new EnemyMovement();
-
+    // Looking at player
+    private Transform enemyLocation;
     // Firing!
     private Transform player;
     private Transform firePoint;
@@ -34,23 +35,27 @@ public class ShooterEnemyScript : MonoBehaviour
     {
         // Set objects
         enemyRb = GetComponent<Rigidbody>();
-
         // Set the firepoint
         firePoint = transform;
         // Set the player
         player = GameObject.Find("Player").transform;
-
         // Set Game Gamager
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Set spawn manager
         spawnManager = FindObjectOfType<SpawnManager>();
+        // Set the look direction
+        enemyLocation = transform;
     }
 
 
     void Update()
     {
-        movement.MoveShooterEnemy(enemyRb, speed, maxSpeed, radius);
+        // Calculate player direction
+        Vector3 playerDirection = player.position - transform.position;
+        // Set the enemy to look at the player
+        enemyLocation.forward = playerDirection.normalized;
 
+        movement.MoveShooterEnemy(enemyRb, speed, maxSpeed, radius);
         // if statement for firing
         if (Time.time >= reload)
         {
@@ -64,7 +69,7 @@ public class ShooterEnemyScript : MonoBehaviour
         // Calculate player direction
         Vector3 fireDirection = player.position - firePoint.position;
 
-        // Rotate the firePoint to face the player (optional)
+        // Rotate the firePoint to face the player
         firePoint.forward = fireDirection.normalized;
 
         // Instantiate a bullet at the fire point's position and rotation

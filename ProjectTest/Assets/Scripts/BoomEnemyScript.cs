@@ -13,6 +13,9 @@ public class BoomEnemyScript : MonoBehaviour
     private GameManager gameManager;
     // Explosion
     public GameObject explosion;
+    // Get the player
+    private Transform player;
+    private Transform enemyLocation;
 
     EnemyMovement movement = new EnemyMovement();
     void Start()
@@ -21,11 +24,19 @@ public class BoomEnemyScript : MonoBehaviour
         enemyRb = GetComponent<Rigidbody>();
         // Set Game Gamager
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        // Set the player
+        player = GameObject.Find("Player").transform;
+        // Set look direction
+        enemyLocation = transform;
     }
 
     
     void Update()
     {
+        // Calculate player direction
+        Vector3 playerDirection = player.position - transform.position;
+        // Set the enemy to look at the player
+        enemyLocation.forward = playerDirection.normalized;
         // Move the enemy
         movement.MoveEnemy(enemyRb, speed, rotationSpeed, maxSpeed);
     }

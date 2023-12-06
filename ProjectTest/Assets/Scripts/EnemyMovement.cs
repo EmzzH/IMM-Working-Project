@@ -18,15 +18,16 @@ public class EnemyMovement
         // Set enemy direction towards player goal and move there
         Vector3 lookDirection = player.transform.position - enemyRb.transform.position;
         // Rotate them
-        Vector3.RotateTowards(enemyRb.transform.forward, lookDirection, rotationSpeed * Time.deltaTime, 0.0f);
+        enemyRb.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(enemyRb.transform.forward, lookDirection, rotationSpeed * Time.deltaTime, 0.0f));
+
         // Add the force
-        enemyRb.AddForce(lookDirection * speed * Time.deltaTime);
+        enemyRb.AddForce(lookDirection * (speed * Time.deltaTime));
 
             // Speed limit for enemies
             if (enemyRb.velocity.magnitude > maxSpeed)
             {
             // enemyRb.velocity = enemyRb.velocity.normalized * maxSpeed;
-            enemyRb.velocity = Vector3.zero;
+            enemyRb.velocity = enemyRb.velocity.normalized * maxSpeed;
         }
     }
 

@@ -42,8 +42,8 @@ public class PlayerController : MonoBehaviour
     Ray ray;
 
     // Keep player in bounds
-    private float xRange = 20;
-    private float zRange = 20;
+    private float xRange = 19.5f;
+    private float zRange = 19.5f;
 
     // Player material
     public Material playerMat;
