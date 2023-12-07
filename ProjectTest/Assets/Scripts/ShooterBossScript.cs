@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.Pipes;
@@ -124,6 +125,7 @@ public class ShooterBossScript : MonoBehaviour
                 gameManager.isBossDead = true;
                 // Destroy the shooter enemy GameObject
                 Destroy(gameObject);
+                
             }
         }
     }

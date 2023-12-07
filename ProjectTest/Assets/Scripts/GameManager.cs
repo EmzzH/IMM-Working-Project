@@ -319,7 +319,6 @@ public class GameManager : MonoBehaviour
         {
             spawnManager.SpawnShooterBoss();
             timeLeft = 300;
-            spawnManager.SpawnAfterBoss();
         }
     }
 }

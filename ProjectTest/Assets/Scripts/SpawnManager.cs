@@ -120,18 +120,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnAfterBoss() 
-    {
-        for (int i = 0; i < 10; i++) 
-        {
-            int x = 2;
-            int z = 2;
-            Vector3 localSpawn = new Vector3(x, 0, z);
-            Instantiate(shooterEnemy, localSpawn, shooterBoss.transform.rotation);
-            x += 2;
-            z += 2;
-        }
-    }
 
     // Set round over to stop enemies spawning
     public void SetRoundActive(bool isGameActive)
