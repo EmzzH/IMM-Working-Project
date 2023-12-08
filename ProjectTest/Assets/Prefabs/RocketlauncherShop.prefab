@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1076004801039951871}
   m_Layer: 0
   m_Name: RocketlauncherShop
-  m_TagString: Untagged
+  m_TagString: ShopObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,8 +53,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3882547, y: 1, z: 1}
-  m_Center: {x: 0.12622266, y: -3.221226e-16, z: 0}
+  m_Size: {x: 0.5684596, y: 1, z: 1}
+  m_Center: {x: 0.036120217, y: -1.7782996e-16, z: 0}
 --- !u!114 &1076004801039951871
 MonoBehaviour:
   m_ObjectHideFlags: 0

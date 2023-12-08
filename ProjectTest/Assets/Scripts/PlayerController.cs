@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     private SceneController sceneManager;
     // Data manager
     private DataManager dataManager;
+    // Gun Objects
+    public GameObject pistol;
+    public GameObject shotGun;
+    public GameObject machineGun;
+    public GameObject rocketLauncher;
 
     // Player location for shop
     private Vector3 playerShopPosition = new Vector3(0, 1, 0);
@@ -62,9 +67,10 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        transform.localRotation = Quaternion.Euler(-90, 0, 0);
         // Set dataManager
         dataManager = FindObjectOfType<DataManager>();
-        
+
         // Set game manager
         gameManager = FindObjectOfType<GameManager>();
         // Set up for looking at mouse
@@ -73,22 +79,25 @@ public class PlayerController : MonoBehaviour
 
         // Set the firepoint
         firePoint = playerGun.transform;
-        
+
         // Set Scene manager
         sceneManager = FindObjectOfType<SceneController>();
 
         // Set the player colour
         playerMat.SetColor("_Color", Color.green);
 
+        // Set the player weapon
+        WeaponCheck();
     }
 
     void Update()
     {
+        transform.localRotation = Quaternion.Euler(-90, 0, 0);
         // Keeping player in bounds
         PlayerBoundaries(transform.position);
 
         // Create input vector 3
-        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical"));
+        Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         // Move player character
         transform.position += input.normalized * speed * Time.deltaTime;
 
@@ -102,7 +111,7 @@ public class PlayerController : MonoBehaviour
             // Check for reload
             if (isReloading)
             {
-                return;            
+                return;
             }
 
             if (dataManager.ammunition > 0)
@@ -116,13 +125,13 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Input for laying mindes
-        if (Input.GetKeyDown(KeyCode.Mouse1)) 
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             layMine();
         }
 
-            // Reload Logic
-            IEnumerator Reload()
+        // Reload Logic
+        IEnumerator Reload()
         {
             isReloading = true;
             if (gameManager != null)
@@ -159,10 +168,10 @@ public class PlayerController : MonoBehaviour
             }
         }
         // Player hit
-        if (isHit) 
+        if (isHit)
         {
             PlayerHit();
-        }    
+        }
     }
 
     void Fire()
@@ -205,7 +214,7 @@ public class PlayerController : MonoBehaviour
             // Left bullet
             Instantiate(playerBullet, firePoint.position, leftRotation);
             // Right bullet
-            Instantiate(playerBullet, firePoint.position, rightRotation); 
+            Instantiate(playerBullet, firePoint.position, rightRotation);
         }
 
         if (playerWeapon == "rocketlauncher")
@@ -231,7 +240,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void layMine() 
+    public void layMine()
     {
         if (dataManager.hasMine && dataManager.mineCount <= dataManager.maxMines)
         {
@@ -239,7 +248,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void PlayerHit() 
+    public void PlayerHit()
     {
         playerMat.SetColor("_Color", Color.red);
 
@@ -249,13 +258,13 @@ public class PlayerController : MonoBehaviour
             // Set the player to green again
             playerMat.SetColor("_Color", Color.green);
             // Reset the player being hit
-            timeLeft = 0;   
+            timeLeft = 0;
             isHit = false;
         }
     }
 
     // Player Boundaries
-    public void PlayerBoundaries(Vector3 playerPosition) 
+    public void PlayerBoundaries(Vector3 playerPosition)
     {
         if (transform.position.x < -xRange)
         {
@@ -272,6 +281,40 @@ public class PlayerController : MonoBehaviour
         if (transform.position.z > zRange)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, zRange);
+        }
+    }
+
+    // Player weapon check
+    public void WeaponCheck()
+    {
+        // Pistol check
+        if (dataManager.playerWeapon == "pistol")
+        {
+            pistol.SetActive(true);
+            shotGun.SetActive(false);
+            machineGun.SetActive(false);
+            rocketLauncher.SetActive(false);
+        }
+        if (dataManager.playerWeapon == "shotgun")
+        {
+            pistol.SetActive(false);
+            shotGun.SetActive(true);
+            machineGun.SetActive(false);
+            rocketLauncher.SetActive(false);
+        }
+        if (dataManager.playerWeapon == "machinegun")
+        {
+            pistol.SetActive(false);
+            shotGun.SetActive(false);
+            machineGun.SetActive(true);
+            rocketLauncher.SetActive(false);
+        }
+        if (dataManager.playerWeapon == "rocketlauncher")
+        {
+            pistol.SetActive(false);
+            shotGun.SetActive(false);
+            machineGun.SetActive(false);
+            rocketLauncher.SetActive(true);
         }
     }
 

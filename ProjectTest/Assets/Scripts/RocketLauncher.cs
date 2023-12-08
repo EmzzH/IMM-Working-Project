@@ -39,7 +39,11 @@ public class RocketLauncher : MonoBehaviour
             // Set the datamanger price
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            // Destroy the player bullet
+            if (other.CompareTag("PlayerBullet"))
+            {
+                Destroy(other.gameObject);
+            }
 
             // Update datamanager for weapon
             dataManager.initialAmmunition = 3;
@@ -49,6 +53,7 @@ public class RocketLauncher : MonoBehaviour
             dataManager.fireRate = fireRate;
             playerController.playerWeapon = "rocketlauncher";
             dataManager.playerWeapon = "rocketlauncher";
+            playerController.WeaponCheck();
         }
     }
 }

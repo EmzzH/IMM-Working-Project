@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2522292191651382882}
   m_Layer: 0
   m_Name: ShotgunShop
-  m_TagString: Untagged
+  m_TagString: ShopObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,8 +53,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.3241605, y: 1, z: 1}
-  m_Center: {x: -0.12657394, y: -3.296106e-16, z: 0}
+  m_Size: {x: 0.46987176, y: 1, z: 1}
+  m_Center: {x: -0.053718287, y: -5.5295544e-16, z: 0}
 --- !u!114 &2522292191651382882
 MonoBehaviour:
   m_ObjectHideFlags: 0

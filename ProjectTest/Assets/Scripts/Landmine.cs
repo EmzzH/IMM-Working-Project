@@ -59,6 +59,11 @@ public class Grenade : MonoBehaviour
             Instantiate(explosion, landminePosition, Quaternion.identity);
             dataManager.mineCount--;
             Destroy(gameObject);
+            // Destroy the player bullet
+            if (other.CompareTag("PlayerBullet"))
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 }

@@ -38,7 +38,11 @@ public class Sniper : MonoBehaviour
             // Set the datamanger price
             dataManager.coinsCollected = localMoney;
             Destroy(gameObject);
-            Destroy(other.gameObject);
+            // Destroy the player bullet
+            if (other.CompareTag("PlayerBullet"))
+            {
+                Destroy(other.gameObject);
+            }
 
             // Update data manager for weapon
             dataManager.initialAmmunition = 25;
@@ -48,6 +52,7 @@ public class Sniper : MonoBehaviour
             dataManager.fireRate = fireRate;
             playerController.playerWeapon = "machinegun";
             dataManager.playerWeapon = "machinegun";
+            playerController.WeaponCheck();
         }
     }
 }
