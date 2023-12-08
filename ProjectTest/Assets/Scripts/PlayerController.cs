@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
     {
         if (dataManager.hasMine && dataManager.mineCount <= dataManager.maxMines)
         {
-            Instantiate(playerMine, firePoint.position, Quaternion.LookRotation(fireDirection));
+            Instantiate(playerMine, transform.position, Quaternion.LookRotation(fireDirection));
         }
     }
 

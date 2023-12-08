@@ -128,7 +128,7 @@ MonoBehaviour:
   playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
   playerRocket: {fileID: 1783106780403429546, guid: 4588bb6cab9e72d43b4c27e702acf4ae, type: 3}
   playerGun: {fileID: 6388398440179048823}
-  playerMine: {fileID: 6325395753657253597, guid: c3a8670e6f29a5f4cb3245459fd559c1, type: 3}
+  playerMine: {fileID: 882630892611801007, guid: c817aef4765195c45b0b61e071800ece, type: 3}
   gameManager: {fileID: 0}
   pistol: {fileID: 339626143171881514}
   shotGun: {fileID: 6636234808602027457}
@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 6388398440179048823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.006, y: 0.075999975, z: 0.63}
+  m_LocalPosition: {x: 0.744, y: 0.075999975, z: 0.891}
   m_LocalScale: {x: 0.5, y: 0.089295, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
