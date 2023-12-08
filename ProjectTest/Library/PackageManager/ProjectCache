@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638333244623773684
-    m_Hash: 605961384
+      ticks: 638376618898351309
+    m_Hash: 3575964106
   m_LockFileStatus:
     m_FilePath: D:/IMM-Project/IMM-Working-Project/ProjectTest/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638333245034016522
-    m_Hash: 647691104
+      ticks: 638376618898351309
+    m_Hash: 598023650
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
@@ -2824,10 +2824,12 @@ m_ResolvedPackages:
     - 3.0.24
     - 3.0.25
     - 3.0.26
+    - 3.0.27
     compatible:
     - 3.0.25
     - 3.0.26
-    recommended: 3.0.26
+    - 3.0.27
+    recommended: 3.0.27
     deprecated: []
   dependencies:
   - name: com.unity.ext.nunit
@@ -3130,6 +3132,7 @@ m_ResolvedPackages:
     - 1.3.8
     - 1.3.9
     - 1.4.0
+    - 1.4.1
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
@@ -3146,6 +3149,7 @@ m_ResolvedPackages:
     - 1.3.8
     - 1.3.9
     - 1.4.0
+    - 1.4.1
     - 2.0.1-exp.1
     - 2.0.1-exp.2
     - 2.0.1-pre.12
