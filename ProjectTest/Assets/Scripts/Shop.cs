@@ -9,8 +9,8 @@ public class Shop : MonoBehaviour
 
      // Shop Prefabs
     public GameObject[] shopPrefabs; 
-    private float shopSpawnPosX = 10.0f;
-    private float shopSpawnPosZ = 10.0f;
+    private float shopSpawnPosX = 5.0f;
+    private float shopSpawnPosZ = 5.0f;
     // y position
     private float yPos = 1;
     // DataManager
