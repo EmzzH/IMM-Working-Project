@@ -11,7 +11,7 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     // Declare variables
-    private int enemiesKilled;
+    private int enemiesKilled; 
     public int coinsCollected;
     private float timeLeft;
     private int roundCounter;
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
 
         // Call SpawnManager
         spawnManager = FindObjectOfType<SpawnManager>();
+        
         // Get the UIController
         uiController = FindObjectOfType<UIController>();
 
@@ -98,7 +99,7 @@ public class GameManager : MonoBehaviour
     public void UpdateEnemiesKilled(int killsToAdd) 
     {
         enemiesKilled += killsToAdd;
-        killedText.text = "Enemies Killed: " + enemiesKilled;
+        killedText.text = "Enemies Killed: " + enemiesKilled;   
     }
 
     // Coins collected
@@ -148,6 +149,8 @@ public class GameManager : MonoBehaviour
     public void ShopTime()
     {
         //Load Shop Scene
+        //Emily Test
+        PlayerPrefs.SetInt("Kills", enemiesKilled);
         SceneManager.LoadScene(2);
         //groundObject.SetActive(false);
        // shopManager.SpawnShop();

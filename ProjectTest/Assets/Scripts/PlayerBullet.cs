@@ -52,7 +52,7 @@ public class PlayerBullet : MonoBehaviour
         {
             Destroy(gameObject);
             //Load the Game Again
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(5);
         }
     }
 }
