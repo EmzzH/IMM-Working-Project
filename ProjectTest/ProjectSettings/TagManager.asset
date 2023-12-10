@@ -11,6 +11,7 @@ TagManager:
   - ShopObject
   - Explosion
   - Exit
+  - timer
   layers:
   - Default
   - TransparentFX

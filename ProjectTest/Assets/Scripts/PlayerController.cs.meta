@@ -5,6 +5,12 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - playerBullet: {fileID: 8312224983479657808, guid: d71bb2d7005d7cd42b63f98b9358b1db, type: 3}
+  - playerRocket: {fileID: 1783106780403429546, guid: 4588bb6cab9e72d43b4c27e702acf4ae, type: 3}
+  - playerGun: {instanceID: 0}
+  - gameManager: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - planeCollider: {instanceID: 0}
+  - playerMat: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

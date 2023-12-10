@@ -1,10 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class UIController : MonoBehaviour
 {
+
+    private Slider timerSlider;
+   
+    
+    
     // Method for hiding text
     public void HideUI(TextMeshProUGUI text)
     {
@@ -27,4 +35,5 @@ public class UIController : MonoBehaviour
     {
         canvas.gameObject.SetActive(true);
     }
+
 }

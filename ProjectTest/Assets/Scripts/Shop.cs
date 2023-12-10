@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -8,20 +9,30 @@ public class Shop : MonoBehaviour
 
      // Shop Prefabs
     public GameObject[] shopPrefabs; 
-    private float shopSpawnPosX = 10.0f;
-    private float shopSpawnPosZ = 10.0f;
+    private float shopSpawnPosX = 4.0f;
+    private float shopSpawnPosZ = 3.0f;
     // y position
     private float yPos = 1;
-
-
+    // DataManager
+    private DataManager dataManager;
+    // Shop UI
+    public TextMeshProUGUI tutorialText;
+    public TextMeshProUGUI coinsText;
+    public TextMeshProUGUI playerHealthText;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //Create Player in Shop
-         //Instantiate(player, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        // Get the dataManager
+        dataManager = FindObjectOfType<DataManager>();
 
+        dataManager.ammunition = dataManager.initialAmmunition;
+        // Display for round 1 shop tutoiral screen
+        if (dataManager.roundCounter == 2) 
+        {
+            tutorialText.text = "Welcome to the shop, shoot items to buy. Shoot the exit to leave.";
+        }
         //Add Shop Prefab Items        
         for (int i = 0; i < 5; i++)
         {
@@ -57,8 +68,7 @@ public class Shop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-    
-
+        coinsText.text = "Coins: " + dataManager.coinsCollected;
+        playerHealthText.text = "Health: " + dataManager.playerHealth;
     }
 }
